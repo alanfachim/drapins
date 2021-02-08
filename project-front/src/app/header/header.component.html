@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary  ">
+
+    <a class="navbar-brand" href="#"><img src="..\..\assets\logo.png" style="max-width: 70px;"> </a>
+
+    <div class="navbar-toggler d-lg-none form-inline p-0"  
+         style="border: 0px;">
+        <a class="nav-link btn" [ngClass]="appsevice.Catalogo!='sp'?'':'btn-sel'" (click)="onclickCatalogo('sp')" href="#"
+            >SP</a>
+        <a class="nav-link btn" [ngClass]="appsevice.Catalogo!='mg'?'':'btn-sel'" (click)="onclickCatalogo('mg')" href="#"
+            >MG</a>
+
+        <button class="btn btn-link ml-auto mr-1" (click)="onCarrinhoClick()">
+            <fa-icon [icon]="faShoppingBasket" class="" size="lg" style="color: white;"></fa-icon>
+            <div class="rounded-circle p-1 bskn" *ngIf="qtitens>0">{{qtitens}}</div>
+        </button>
+        <button class="navbar-toggler btn btn-outline-primary" 
+            (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapsibleNavId">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse  " id="collapsibleNavId" [ngbCollapse]="isCollapsed" [ngClass]="!currentWindowWidth?'row':''">
+        <div *ngFor="let e of getstate()">
+        <a class="nav-link btn" *ngIf="currentWindowWidth" [ngClass]="appsevice.Catalogo!=e?'':'btn-sel'" 
+            (click)="onclickCatalogo(e)" href="#">Catálogo {{e.toLocaleUpperCase()}}</a> 
+        </div>
+        
+        <form  [formGroup]="searchForm" (ngSubmit)="onclick()" class="input-group  my-2 my-lg-0 mr-1 ml-auto p-0" style="max-width: 20rem;" [ngClass]="!currentWindowWidth?'col-7':''">
+            <input formControlName="search"  type="text" class="form-control" [(ngModel)]="inp" placeholder="Buscar"
+                aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append" *ngIf="currentWindowWidth">
+                <button class="btn btn-outline-light  " (click)="onclick()" type="submit">Procurar </button>
+            </div>
+        </form>
+        
+        <button class="btn btn-link ml-0 mr-1" *ngIf="currentWindowWidth " (click)="onCarrinhoClick()" placement="auto" [disablePopover]="qtitens>0"
+            ngbPopover="O carrinho está vazio!" popoverClass="my-custom-class" >
+            <fa-icon [icon]="faShoppingBasket" class="" size="lg" style="color: white;"></fa-icon>
+            <div class="rounded-circle p-1 bskn" *ngIf="qtitens>0">{{qtitens}}</div>
+        </button>
+        <a class="btn btn-link text-white" href="/login?redirect=/" *ngIf="(appsevice.cliente!==undefined && appsevice.cliente.nome=='')||appsevice.cliente===undefined" [ngClass]="!currentWindowWidth?'col-4':''" >
+            <i class="fas fa-user" ></i>  Entrar            
+        </a>
+
+        <div ngbDropdown class=" d-flex align-items-center  " *ngIf="appsevice.cliente!==undefined && appsevice.cliente.nome!=''" [ngClass]="!currentWindowWidth?'col-4':''">
+            <button class="text-truncate btn btn-link text-white" id="dropdownBasic1" ngbDropdownToggle>{{appsevice.cliente.nome}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-right">
+              <a style="color: blueviolet !important;" href="/cliente?token={{appsevice.token}}&user={{appsevice.cliente.email}}&action=order" ngbDropdownItem>Meus Pedidos</a>
+              <a style="color: blueviolet !important;" href="/cliente?token={{appsevice.token}}&user={{appsevice.cliente.email}}&action=profile" ngbDropdownItem>Perfil</a>
+              <a style="color: blueviolet !important;" [href]="a.url" *ngFor="let a of appsevice.extramenu" ngbDropdownItem>{{a.name}}</a>
+              <a style="color: blueviolet !important;" (click)="appsevice.logout()" ngbDropdownItem>Sair</a>
+            </div>
+          </div> 
+
+        <button class="btn btn-link " *ngIf="token!==undefined" (click)="admin()">
+            <fa-icon [icon]="faWrench" class="" style="color: white;"></fa-icon>
+        </button>
+    </div>
+
+
+
+</nav>

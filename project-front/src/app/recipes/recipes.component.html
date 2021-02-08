@@ -1,0 +1,32 @@
+
+
+<app-header (click)="click()"></app-header>
+
+<div class="container p-0">
+  
+  <div class="row no-gutters bg-white"> 
+    <div class="col mr-md-3 ml-md-3">
+        <div class="row no-gutters"> 
+            <div class="col pt-4 bg-white " style="max-width: 1095px;"><app-recipes-list (onload)="onloadfinished()"></app-recipes-list> </div>
+                    
+            </div>
+    </div>
+    
+  </div>
+  
+</div> 
+<div _ngcontent-swn-c124="" class="wrap p-5 rounded" *ngIf="loading" style="
+    background-color: rgba(255, 255, 255, 0.925);
+    position: fixed;
+    box-shadow: 0 0 10px rgb(148, 153, 236);
+"><div   class="loading"> <span class="spinner-border spinner-border-sm   loader  ml-5 mr-5 "></span>  </div></div>
+
+<div class="footer" *ngIf="currentWindowWidth">
+  <a class=" btn btn-info mr-2 p-1" style="height: 35px; width: 35px;" href="https://www.instagram.com/dra.pins">
+    <i class="fab fa-instagram" style="    font-size: x-large;"></i> 
+  </a>
+<a class=" btn btn-info mr-2 p-1" style="height: 35px; width: 35px;"  href="https://www.facebook.com/dra.pins">
+  <i class="fab fa-facebook" style="    font-size: x-large;"></i> 
+</a> 
+</div>
+

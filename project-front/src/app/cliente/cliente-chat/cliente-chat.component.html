@@ -1,0 +1,67 @@
+<div class="row m-0">
+    <div class="col-12 chat-window m-0 p-0" id="chat_window_1">
+        <div class="p-0 m-0 ">
+            <div class="panel panel-default banner">
+
+                <div class="panel-body msg_container_base  "
+                    style="box-shadow: 0 0 4px #00000073 inset; min-height: 300px;" #scrollframe  (onresize)="scrollToBottom()">
+
+                    <div class="bg"></div>
+                    <div *ngFor="let msg of dialog" #item>
+                        <div class="row msg_container base_sent" *ngIf="(!(admin=='true') && msg.sender=='ME')||((admin=='true') && msg.sender!='ME')">
+                            <div class="col-md  col-xs ">
+                                <div class="messages msg_sent">
+                                    <p>{{msg.text}}</p>
+                                    <time datetime="2009-11-13T20:00"> 51 min</time>
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-xs-1  avatar">
+                                <div class=" rounded-circle  bg-danger font-weight-bold text-center" style="font-size: x-large;
+                                max-width: 50px;
+                                min-width: 50px;
+                                min-height: 50px;
+                                line-height: 45px;
+                                color: aliceblue;">{{nome}}</div>
+                            </div>
+                        </div>
+                        <div class="row msg_container base_receive" *ngIf="(!(admin=='true') && msg.sender!='ME')||((admin=='true') && msg.sender=='ME')">
+                            <div class="col-md-2 col-xs-2 avatar" *ngIf="!(admin=='true')" >
+                                <img src="..\..\..\assets\logo.png" class=" img-responsive ">
+                            </div>
+                            <div class="col-md-1 col-xs-1  avatar" *ngIf="(admin=='true')">
+                                <div class=" rounded-circle  bg-danger font-weight-bold text-center" style="font-size: x-large;
+                                max-width: 50px;
+                                min-width: 50px;
+                                min-height: 50px;
+                                line-height: 45px;
+                                color: aliceblue;">C</div>
+                            </div>
+                            <div class="col-md-10 col-xs-10">
+                                <div class="messages msg_receive">
+                                    <p>{{msg.text}}</p>
+                                    <time datetime="2009-11-13T20:00"> 51 min</time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form [formGroup]="chatForm" (ngSubmit)="submit()">
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="msg-input" type="text" formControlName="msgInput" autocomplete="new-password"
+                                class="form-control input-sm chat_input" placeholder="Digite uma mensagem" />
+
+                            <span class="input-group-append">
+
+                                <button class="btn btn-primary btn-sm" id="btn-chat">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Enviar</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

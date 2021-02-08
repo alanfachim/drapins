@@ -1,0 +1,63 @@
+{
+    "configurations": [
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "drapins:fn1",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "template.yml",
+                "logicalId": "fn1"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "drapins:HelloWorldFunction2",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "template.yml",
+                "logicalId": "HelloWorldFunction2"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "HelloWorldFunction (nodejs12.x)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "template.yml",
+                "logicalId": "HelloWorldFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API HelloWorldFunction (nodejs12.x)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "template.yml",
+                "logicalId": "HelloWorldFunction"
+            },
+            "api": {
+                "path": "/hello",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+<div class="modal-header">
+<h4>Configurar quantidade</h4>
+</div>
+<div class="container">
+<div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="codigo">Código do produto:</label>
+                <input name="codigo" class="form-control" id="codigo" ngModel required #first="ngModel">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="qt">Quantidade:</label>
+                <input name="qt" class="form-control" id="qt" ngModel required #first="ngModel">
+            </div>
+        </div> 
+        <div class="form-row">
+            <div class="form-group col">
+                <button class="btn btn-primary float-right">Salvar</button>
+            </div>
+        </div> 
+        
+    </form>
+</div>
+</div>

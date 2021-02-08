@@ -1,0 +1,68 @@
+.bskn{
+    position: absolute;
+    z-index: 100;
+    background-color: blueviolet;
+    font-size: 12px;
+    color: white;
+    margin-top: -2.5rem;
+    margin-left: 0.75rem;
+    width: 24px;
+    height: 24px;
+}
+#st-13 .st-btn > img {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 10px;
+    vertical-align: top;
+}
+#st-13 .st-btn[data-network='facebook'] {
+    background-color: #4267B2;
+} 
+#st-13 .st-btn {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-transition: opacity 0.2s ease-in, top 0.2s ease-in;
+    -ms-transition: opacity 0.2s ease-in, top 0.2s ease-in;
+    -o-transition: opacity 0.2s ease-in, top 0.2s ease-in;
+    -webkit-transition: opacity 0.2s ease-in, top 0.2s ease-in;
+    transition: opacity 0.2s ease-in, top 0.2s ease-in;
+    -moz-border-radius: undefinedpx;
+    -webkit-border-radius: undefinedpx;
+    border-radius: undefinedpx;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 0;
+    padding: 0 10px;
+    position: relative;
+    text-align: center;
+    top: 0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.btn-sel{
+    box-shadow: 0px 0px 10px #0000007a inset;
+}
+a{
+    color: white !important;
+}
+ 
+:host::ng-deep ngb-popover-window::ng-deep .arrow::after {
+    border-bottom-color:#6d3a00  !important;
+ }
+ :host::ng-deep ngb-popover-window::ng-deep .popover-body {
+    color: white !important;
+    background-color: #6d3a00   !important;
+    font-size: 120%;
+    padding: 30px;
+ } 
+ :host::ng-deep  .popover {
+    box-shadow: 0px 0px 10px #0000007a ;
+ }
+  .btn-link:hover {
+    background: #9b069b !important;
+}

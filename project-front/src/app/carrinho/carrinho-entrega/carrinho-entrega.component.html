@@ -1,0 +1,75 @@
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel(1)" id="exampleRadios1"
+        value="option1" [disabled]="disabled" [checked]="option==1">
+    <label class="form-check-label" for="exampleRadios1">
+        Entrega via correio.
+    </label>
+</div>
+<div class="form-check" *ngIf="sp">
+    <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel(2)" id="exampleRadios2"
+        value="option2" [disabled]="disabled">
+    <label class="form-check-label" for="exampleRadios2">
+        Combinar entrega em São Paulo - SP.
+    </label>
+</div>
+<div class="form-check pl-5" *ngIf="option>1 && option<10">
+    <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel(3)" id="exampleRadios2"
+        value="option2" [disabled]="disabled">
+    <label class="form-check-label" for="exampleRadios2">
+        Entrega em uma estação do metrô.
+    </label>
+</div>
+<div *ngIf="option>2&&option<4">
+    <div class="form-row  pl-5">
+        <div class="form-group col  p-0 m-0">
+            <div id="busca" class="">
+                <ng-autocomplete [data]="metro" placeHolder="Estação do metro" [searchKeyword]="nome"
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" [disabled]="disabled">
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nome"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-row  pl-5 pb-2" style="color: red;font-size: small;">*favor combinar o dia e a hora de entrega
+        comigo via @dra.pins  </div>
+</div>
+<div class="form-check pl-5" *ngIf="option>1.5 && option<10">
+    <input class="form-check-input" type="radio" (click)="sel(4)" name="exampleRadios" id="exampleRadios2"
+        value="option2" [disabled]="disabled">
+    <label class="form-check-label" for="exampleRadios2">
+        Combinar entrega por whatsapp no local indicado - <b>Grátis</b> <div *ngIf="option>3 &&option<10" style="
+        background-color: green;
+        color: white;
+    " class="p-2 rounded"> <i _ngcontent-pdy-c111="" aria-hidden="true" class="fab fa-whatsapp" style="
+        font-weight: bolder;
+    "></i> {{this.appsevice.telcontsp}}</div>
+    </label>
+</div>
+<div class="form-check" *ngIf="mg">
+    <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel(12)" id="exampleRadios12"
+        value="option2" [disabled]="disabled">
+    <label class="form-check-label" for="exampleRadios2">
+        Retirar em rua Pedro Botti,555/509, Alto dos Passos - Juiz de Fora - <b>Grátis</b>
+    </label>
+</div>
+<div class="form-check pl-3" *ngIf="option>11.5 && option<12.5">
+    <div style="color: green;"  class=" rounded"> 
+        Combinar entrega via Instagram ou Whatsapp
+        <i _ngcontent-pdy-c111=""
+            aria-hidden="true" class="fab fa-whatsapp" style="
+        font-weight: bolder;
+    "></i> {{this.appsevice.telcontmg}}</div>
+</div>
+<div class="form-check" *ngIf="mg">
+    <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel(13)" id="exampleRadios12"
+        value="option2" [disabled]="disabled">
+    <label class="form-check-label" for="exampleRadios2">
+        Entrega em Juiz de Fora - <b>R$ 5,00</b>
+    </label>
+</div>

@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row shadow-sm p-2 mb-2  rounded" style="background-color: aliceblue;">
+
+
+        <div class="col-xs">
+            <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+                <button class=" btn btn-link p-0 m-0" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">
+                    <fa-icon [icon]="faSort"></fa-icon>
+                    Ordenar
+                </button>
+                <div ngbDropdownMenu aria-labelledby="triggerId">
+                    <button ngbDropdownItem (click)="onSortSelect(1)">Preço</button>
+                    <button ngbDropdownItem (click)="onSortSelect(2)">Estoque</button>
+                    <button ngbDropdownItem (click)="onSortSelect(3)">Classe</button>
+                    <button ngbDropdownItem (click)="onSortSelect(4)">Popularidade</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="container bg-white text-center" *ngIf="recipes_orig.length==0" style=" min-height: calc(100vh - 50px);">
+    <span class="spinner-border spinner-border-sm mr-1 loader mt-5"></span>
+</div>
+
+<div class="container " *ngFor="let recipes of classes; let ii = index">
+    <div class="row" *ngIf="recipes.length>0 && classes.length>1">
+        <div class="col">
+            <div class="separator">{{getclass(classes,ii) }}</div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-xs" *ngFor="let r of recipes; let i = index">
+            <div href="#" class="list-group-item clearfix p-0 m-1 shadow-sm rounded-lg"
+                style="border: 0px !important; overflow: hidden; ">
+                <div class="view overlay" style="position: relative !important;">
+                    <img [src]="r.url" alt="" class="img-responsive" style="height: 110px;width: 110px;">
+                    <div class="mask   text-center" [ngClass]="r.qt !='0'?'rgba-blue-strong':'rgba-red-strong'">
+                        <p class="white-text pt-2">{{r.SKU}}</p>
+                        <p class="white-text" *ngIf="r.qt !='0'">Estoque:{{r.qt}}</p>
+                        <p class="white-text" *ngIf="r.qt =='0'">Indisponível</p>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 bg-success">
+                    <p class="list-group-item-text text-center text-truncate bg-primary col-8 p-0"
+                        style=" color: white;">
+                        {{r.valor}}</p>
+                    <button class=" btn btn-link  bg-success col-4 p-0 m-0" [disabled]=" r.qt =='0'"
+                        (click)="this.appsevice.addCart(r) ">
+                        <fa-icon [icon]="faShoppingCart" class="" style="color: white;"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        nodejs: 12
+  build:
+    commands:
+      - npm install ./functions --prefix ./functions 
+      - sam package --template-file template.yml --s3-bucket s3-alan-fachim --output-template-file packaged-template.yml
+      - sam deploy --template-file packaged-template.yml --no-fail-on-empty-changeset --stack-name aws-sam-ocr --capabilities CAPABILITY_IAM --region sa-east-1 --force-upload
+      - sam publish --template packaged-template.yml --region sa-east-1
+artifacts:
+  files:
+    - packaged-template.yml
+    - out.json

@@ -1,0 +1,209 @@
+<div class="container">
+
+
+  <form [formGroup]="clienteForm" #formDir="ngForm">
+
+
+    <div class="cross-validation"
+      [class.cross-validation-error]="clienteForm.errors?.identityRevealed && (clienteForm.touched || clienteForm.dirty)">
+      <div class="form-row" >
+        <div class="form-group col">
+          <label for="nome">Nome e Sobrenome</label>
+          <input    id="nome" class="form-control" formControlName="nome" placeholder="Nome Sobrenome" required>
+
+          <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+
+            <div *ngIf="nome.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="nome.errors.minlength">
+              Nome incompleto.
+            </div> 
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="email">Email</label>
+          <input id="email" class="form-control" formControlName="email"  type="text" placeholder="email@email.com" (input)="validaUsuario()" required>
+          <div *ngIf="invalidUser" class="alert alert-danger">
+
+            <div *ngIf="invalidUser">
+              Usuário já cadastrado, por favor faça o login.
+            </div>
+          </div>
+          <div *ngIf="(email.invalid && (email.dirty || email.touched)) &&!invalidUser" class="alert alert-danger">
+ 
+            <div *ngIf="email.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="email.errors.minlength">
+              E-mail muito curto.
+            </div>
+            <div *ngIf="email.errors.forbiddenName">
+              E-mail não pode ser {{email.value}}.
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" class="form-control" formControlName="telefone" required>
+          <div *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+
+            <div *ngIf="telefone.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="telefone.errors.minlength||telefone.errors.maxlength">
+              Telefone inválido
+            </div>
+            <div *ngIf="telefone.errors.forbiddenName">
+              Telefone não pode ser {{telefone.value}}.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="senha">Senha</label>
+          <input id="senha" class="form-control" formControlName="senha"   type="password"     required>  
+          <div *ngIf="((senha.invalid && (senha.dirty || senha.touched)) ||confsenha.value !=senha.value) && confsenha.value.trim()!=''" class="alert alert-danger"> 
+            <div *ngIf="senha.errors.required">
+              Campo obrigatório.
+            </div>  
+            <div  >
+              Senhas digitadas não conferem!
+            </div> 
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="confsenha">Confirmar Senha</label>
+          <input id="confsenha" class="form-control" formControlName="confsenha"   type="password"   required> 
+          <div *ngIf="(confsenha.invalid && (confsenha.dirty || confsenha.touched))  " class="alert alert-danger"> 
+            <div *ngIf="confsenha.errors.required">
+              Campo obrigatório.
+            </div> 
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row"> 
+          <div class="form-group col" *ngIf="manual">
+            <label for="endereco">Endereço</label>
+            <input id="endereco" class="form-control" formControlName="endereco" placeholder="Rua,123" [required]="false">
+  
+            <div *ngIf="endereco.invalid && (endereco.dirty || endereco.touched)" class="alert alert-danger">
+  
+              <div *ngIf="endereco.errors.required">
+                Campo obrigatório.
+              </div>
+              <div *ngIf="endereco.errors.minlength">
+                Endereço incompleto.
+              </div> 
+            </div> 
+        </div>
+        <div class="form-group col" *ngIf="!manual">
+          <label for="busca">Endereço</label>
+          <div id="busca" class="">
+            <ng-autocomplete [data]="data" placeHolder="Endereço/Cep"   [searchKeyword]="keyword" [initialValue]="vvl" (selected)='selectEvent($event)'
+              (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+              [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+ 
+
+            <ng-template #itemTemplate let-item>
+               <a [innerHTML]="item.name" *ngIf="item.name!='$ld'"></a> 
+               <div class="spinner-grow spinner-grow-sm m-3"  *ngIf="item.name=='$ld'" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="form-group  col-sm-3" *ngIf="selecionado">
+          <label for="numero">Número</label>
+          <input id="numero" class="form-control" formControlName="numero" autocomplete="new-password" required>
+          <div *ngIf="numero.invalid && (numero.dirty || numero.touched)" class="alert alert-danger">
+
+            <div *ngIf="numero.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="numero.errors.minlength||numero.errors.maxlength">
+              Número inválido. 
+            </div>
+            <div *ngIf="numero.errors.forbiddenName">
+              Número não pode ser {{numero.value}}.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group  col-md-3" *ngIf="selecionado">
+          <label for="complemento">Complemento:</label>
+          <input id="complemento" class="form-control" formControlName="complemento" autocomplete="new-password" >
+          
+        </div>
+
+      </div>
+
+      
+      <div class="form-row" *ngIf="selecionado">
+        <div class="form-group col-md-6">
+          <label for="cidade">Cidade</label>
+          <input id="cidade" class="form-control" formControlName="cidade" autocomplete="new-password" required>
+          <div *ngIf="cidade.invalid && (cidade.dirty || cidade.touched)" class="alert alert-danger">
+
+            <div *ngIf="cidade.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="cidade.errors.minlength">
+              Campo inválido.
+            </div>
+            <div *ngIf="cidade.errors.forbiddenName">
+              Cidade não pode ser {{cidade.value}}.
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="estado">Estado</label>
+          <input id="estado" class="form-control" formControlName="estado" autocomplete="new-password" required>
+          <div *ngIf="estado.invalid && (estado.dirty || estado.touched)" class="alert alert-danger">
+            <div *ngIf="estado.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="estado.errors.minlength">
+              Campo inválido.
+            </div>
+            <div *ngIf="estado.errors.forbiddenName">
+              Estado não pode ser {{estado.value}}.
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="cep">Cep</label>
+          <input id="cep" class="form-control" formControlName="cep" autocomplete="new-password" required>
+          <div *ngIf="cep.invalid && (cep.dirty || cep.touched)" class="alert alert-danger">
+
+            <div *ngIf="cep.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="cep.errors.minlength||cep.errors.maxlength">
+              Valor de cep inválido.
+            </div>
+            <div *ngIf="cep.errors.forbiddenName">
+              Cep não pode ser {{cep.value}}.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <!-- 
+  <div class="submitted-message" *ngIf="formDir.submitted">
+    <p>You've submitted your hero, {{ clienteForm.value.name }}!</p>
+    <button (click)="formDir.resetForm({})">Add new hero</button>
+  </div> -->
+</div>

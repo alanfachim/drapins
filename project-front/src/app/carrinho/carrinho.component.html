@@ -1,0 +1,185 @@
+<div class="modal-header">
+    <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav nav-pills mb-3">
+        <li [ngbNavItem]="1" [disabled]="invalidsingin">
+            <a ngbNavLink>Dados do Cliente</a>
+            <ng-template ngbNavContent>
+                <app-hero-form-reactive (onstatus)="submitFormValid($event)" *ngIf="!login"></app-hero-form-reactive>
+                <div class="row" *ngIf="login">
+                    <hr>
+                    <div class="container">
+                        <div class="col">
+                            <form [formGroup]="clienteForm" #formDir="ngForm">
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <label for="nome">Login</label>
+                                        <label for="nome " class="float-right btn-link"><a
+                                                href="/login?ation=cp">esqueci minha senha...</a></label>
+                                        <input id="nome" class="form-control" formControlName="nome"
+                                            placeholder="usuario">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <input id="senha" class="form-control" formControlName="senha" type="password"
+                                            placeholder="Senha">
+                                        <div *ngIf="falhalogin" class="alert alert-danger">
+                                            Usuário ou senha incorreta
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2" [disabled]="invalid">
+            <a ngbNavLink> Pagamento</a>
+            <ng-template ngbNavContent>
+                <div class="container">
+                    <div class="row text-center inscale" *ngIf="msgtemp">
+                        <div class="col">
+                            <h5 style="    color: green;">Seu usuário foi cadastrado voce reeceberá a senha por email!
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4>Produtos selecionado</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <app-carrinho-lista id="listadecompras"></app-carrinho-lista>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="separator">Endereço de envio.</div>
+                        </div>
+                    </div>
+                    <div class="row p-0 "  >
+                        <div class="col-3">
+                            <p class="m-0">Endereço:</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0">{{appsevice.cliente.endereco}},{{appsevice.cliente.numero}}</p>
+                        </div>
+                    </div>
+                    <div class="row p-0 "  >
+                        <div class="col-3">
+                            <p class="m-0">Cidade:</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0">{{appsevice.cliente.cidade}}</p>
+                        </div>
+                    </div>
+                    <div class="row p-0 "  >
+                        <div class="col-3">
+                            <p class="m-0">Endereço:</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0">{{appsevice.cliente.estado}}</p>
+                        </div>
+                    </div>
+                    <div class="row p-0 "  >
+                        <div class="col-3">
+                            <p class="m-0">Cep:</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0">{{appsevice.cliente.cep}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="separator">Meios de entrega</div>
+                        </div>
+                    </div>
+                    <!-- meios de entrega -->
+                    <app-carrinho-entrega [disabled]="pedidogerado || (totalSP>0 && totalMG>0)" (onchange)="calcule()" options="1" [mg]="totalMG>0" [sp]="totalSP>0"></app-carrinho-entrega>
+                  
+                    <div class="row mt-1">
+                        <div class="col">
+                            <div class="separator">Descritivo.</div>
+                        </div>
+                    </div>
+                    <div class="row p-0 mono" *ngIf="totalSP>0">
+                        <div class="col">
+                            <p class="m-0">Total dos produtos do catálogo SP</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0">{{stotalSP}}</p>
+                        </div>
+                    </div>
+                    <div class="row p-0 mono" *ngIf="freteSP>0">
+                        <div class="col">
+                            <p class="m-0">Frete Catalogo SP</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0"> {{sfreteSP}}</p>
+                        </div>
+                    </div>
+                    <div class="row p-0 mono" *ngIf="totalMG>0">
+                        <div class="col">
+                            <p class="m-0">Total dos produtos do catálogo MG</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0">{{stotalMG}}</p>
+                        </div>
+                    </div>
+                    <div class="row p-0 mono" *ngIf="freteMG>0">
+                        <div class="col">
+                            <p class="m-0">Frete Catálogo MG</p>
+                        </div>
+                        <div class="col">
+                            <p class="m-0"> {{sfreteMG}}</p>
+                        </div>
+                    </div>
+                    <div class="row p-0 ">
+                        <div class="col">
+                            <b class="m-0 font-weight-bold">Total</b>
+                        </div>
+                        <div class="col">
+                            <p class="m-0 font-weight-bold">{{stotal}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container" *ngIf="pedido!=''">
+                    <hr>
+                    <div class="row">
+                        <div class="col-md">
+                            <h6>Escolha uma forma de pagamento</h6>
+                        </div>
+                        <div class="col-md">
+                            <h6 style="text-align: left;">Código do pedido:<b
+                                    class="font-weight-bold h5  ">{{pedido}}</b>
+                            </h6>
+                        </div>
+                    </div>
+                    <app-meus-pedidos-pagamentos *ngIf="!xs"  [pagamentos]="qrcode" [pedido]="pedido"></app-meus-pedidos-pagamentos> 
+                    <app-meus-pedidos-pagamentos-xs *ngIf="xs" [pagamentos]="qrcode" [pedido]="pedido"></app-meus-pedidos-pagamentos-xs> 
+                </div>
+            </ng-template>
+        </li>
+    </ul>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div [ngbNavOutlet]="nav"></div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="login=!login" *ngIf="activeId==1"
+        [ngClass]="!login&&!invalid?'btn-light':'btn-primay'">
+        {{!login?'Já sou cliente fazer login':'Fazer cadastro'}}</button>
+    <button type="button" *ngIf="pedido=='' || activeId==1" class="btn " (click)="submit(nav,login)"
+        [disabled]="(invalid &&( !usuario || !senha || !login)&& !invalidsingin) || loading "
+        [ngClass]="!login?'btn-success':'btn-success'">  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        {{activeId==1 ? login?'Entrar':'Ir Para Pagamento':'Gerar Pagamento'}} </button>
+    <a class="btn btn-primary" href="\cliente?token={{appsevice.token}}&user={{appsevice.cliente.email}}&action=order"
+        *ngIf="pedido!=''&&activeId!=1">Ir Para Meus Pedidos</a>
+
+</div>

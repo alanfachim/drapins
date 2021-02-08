@@ -1,0 +1,43 @@
+<app-header-client></app-header-client>
+<div class="container bg-white " style=" min-height: calc(100vh - 50px);">
+    <div class="row" *ngFor="let pedido of pedidos">
+
+        <div class="container p-0 m-0 pt-3">
+            <div class="card bg-light  p-0 m-0 m-md-4">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">[alerta]</div>
+                       <div class="col">[nome]</div>
+                       <div class="col">[status]</div>
+                       <div class="col">[total]</div>
+                       <div class="col">[dia_compra]</div>
+                       <div class="col">[btncht]</div>
+                       <div class="col">[btnenvio]</div>
+                       <div class="col">[btnlist]</div>
+                       <div class="col">[btncancel]</div>
+                       <div class="col">[btnuser]</div>
+                    </div>
+                </div>
+                <div class="card-body p-3" *ngIf="pedido.exp_lista || pedido.exp_chat || pedido.exp_envio"> 
+                    <div class="row" *ngIf="pedido.exp_lista">
+                        <div class="col">
+                            <app-meus-pedidos-lista [lista]="pedido.lista"></app-meus-pedidos-lista>
+                        </div>
+                    </div> 
+                    <div class="row" *ngIf="pedido.exp_chat">
+                        <div class="col">
+                           <!--  <div class="conteiner "><app-cliente-chat [dialog]="pedido.messages" [pedido]="pedido.codigo" [nome]="cliente.nome.substring(0,1)"></app-cliente-chat></div> -->
+                        </div>
+                    </div> 
+                    <div class="row" *ngIf="pedido.exp_envio">
+                        <div class="col">
+                           criar formulario de envio
+                        </div>
+                    </div> 
+                </div>   
+    
+            </div>
+        </div>
+    </div>
+    
+</div> 

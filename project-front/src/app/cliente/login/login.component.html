@@ -1,0 +1,59 @@
+<div class="container mt-3">
+    <div class="row justify-content-md-center"> 
+        <div class="col   " [ngClass]="login?'mw-500':''">
+            <div class="card shadow ">
+                <h4 class="card-header bg-primary text-white"><a class="navbar-brand" href="#"><img
+                            src="..\..\assets\logo.png" style="max-width: 70px;"> </a>Login</h4>
+                <div class="card-body">
+                    <div class="conteiner" *ngIf="error!=''">
+                        <div class="row alert alert-danger">
+                            <div class="col">
+                                <span>{{error}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form [formGroup]="loginForm" class="p-3" (ngSubmit)="onSubmit()" *ngIf="login">
+                        <div class="form-group">
+                            <label for="username">Email</label>
+                            <input type="text" formControlName="username" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">Username is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" formControlName="password" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">Password is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="loading" class="btn btn-primary">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Entrar
+                            </button>
+                            <a   class="btn btn-link" (click)="onregclick()">Cadastrar</a>
+                        </div>
+                    </form>
+                    <app-hero-form-reactive  *ngIf="!login">
+                    </app-hero-form-reactive>
+                    <div class="conteiner" *ngIf="!login">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group p-3">
+                                    <button [disabled]="loading" (click)="submitFormValid($event)" class="btn btn-primary">
+                                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                        Cadastrar
+                                    </button>
+                                    <a   class="btn btn-link" (click)="onloginclick()">Entrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

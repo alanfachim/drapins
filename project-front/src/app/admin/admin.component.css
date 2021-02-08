@@ -1,0 +1,18 @@
+.btn-sel{
+    box-shadow: 0px 0px 10px #212529 inset;
+}
+button{
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+}
+.bgsp{
+ background-color: tomato;
+}
+.bgmg{
+background-color: violet;
+}
+.bgmgsp{
+background-color: teal;
+}

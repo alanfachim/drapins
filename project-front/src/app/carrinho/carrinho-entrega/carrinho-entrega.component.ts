@@ -1,0 +1,181 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';  
+import { BrowserModule } from '@angular/platform-browser';
+import { AppService } from 'src/app/appservice.service';
+
+@Component({
+  selector: 'app-carrinho-entrega',
+  templateUrl: './carrinho-entrega.component.html',
+  styleUrls: ['./carrinho-entrega.component.css']
+})
+export class CarrinhoEntregaComponent implements OnInit {
+  
+
+  @Input()
+  public option = 1;
+
+  @Input()
+  public sp:boolean = true;
+  @Input()
+  public mg:boolean = true;
+  @Input()
+  public disabled:boolean=true;
+
+  @Output()
+  onchange = new EventEmitter();
+  
+  metro: any[] = [{ "nome": "Tucuruvi" },
+  { "nome": "Parada Inglesa" },
+  { "nome": "Jardim São Paulo-Ayrton Senna" },
+  { "nome": "Santana" },
+  { "nome": "Carandiru" },
+  { "nome": "Portuguesa-Tietê" },
+  { "nome": "Armênia" },
+  { "nome": "Tiradentes" },
+  { "nome": "Luz" },
+  { "nome": "São Bento" },
+  { "nome": "Sé" },
+  { "nome": "Japão-Liberdade" },
+  { "nome": "São Joaquim" },
+  { "nome": "Vergueiro" },
+  { "nome": "Paraíso" },
+  { "nome": "Ana Rosa" },
+  { "nome": "Vila Mariana" },
+  { "nome": "Santa Cruz" },
+  { "nome": "Praça da Árvore" },
+  { "nome": "Saúde" },
+  { "nome": "São Judas" },
+  { "nome": "Conceição" },
+  { "nome": "Jabaquara" },
+  { "nome": "Vila Madalena" },
+  { "nome": "Santuário Nossa Senhora de Fátima-Sumaré" },
+  { "nome": "Clínicas" },
+  { "nome": "Consolação" },
+  { "nome": "Trianon-Masp" },
+  { "nome": "Brigadeiro" },
+  { "nome": "Paraíso" },
+  { "nome": "Ana Rosa" },
+  { "nome": "Chácara Klabin" },
+  { "nome": "Santos-Imigrantes" },
+  { "nome": "Alto do Ipiranga" },
+  { "nome": "Sacomã" },
+  { "nome": "Tamanduateí" },
+  { "nome": "Vila Prudente · Orfanato" },
+  { "nome": "Água Rasa" },
+  { "nome": "Anália Franco" },
+  { "nome": "Vila Formosa" },
+  { "nome": "Guilherme Giorgi" },
+  { "nome": "Nova Manchester" },
+  { "nome": "Aricanduva" },
+  { "nome": "Penha" },
+  { "nome": "Penha de França" },
+  { "nome": "Tiquatira" },
+  { "nome": "Paulo Freire" },
+  { "nome": "Ponte Grande" },
+  { "nome": "Dutra" },
+  { "nome": "Palmeiras-Barra Funda" },
+  { "nome": "Marechal Deodoro" },
+  { "nome": "Santa Cecília" },
+  { "nome": "República" },
+  { "nome": "Anhangabaú" },
+  { "nome": "Sé" },
+  { "nome": "Pedro II" },
+  { "nome": "Brás" },
+  { "nome": "Bresser-Mooca" },
+  { "nome": "Belém" },
+  { "nome": "Tatuapé" },
+  { "nome": "Carrão" },
+  { "nome": "Penha" },
+  { "nome": "Vila Matilde" },
+  { "nome": "Guilhermina-Esperança" },
+  { "nome": "Patriarca" },
+  { "nome": "Artur Alvim" },
+  { "nome": "Corinthians-Itaquera" },
+  { "nome": "Vila Sônia" },
+  { "nome": "São Paulo-Morumbi" },
+  { "nome": "Butantã" },
+  { "nome": "Pinheiros" },
+  { "nome": "Faria Lima" },
+  { "nome": "Fradique Coutinho" },
+  { "nome": "Oscar Freire" },
+  { "nome": "Paulista" },
+  { "nome": "Higienópolis-Mackenzie" },
+  { "nome": "República" },
+  { "nome": "Luz" },
+  { "nome": "Capão Redondo" },
+  { "nome": "Campo Limpo" },
+  { "nome": "Vila das Belezas" },
+  { "nome": "Giovanni Gronchi" },
+  { "nome": "Santo Amaro" },
+  { "nome": "Largo Treze" },
+  { "nome": "Adolfo Pinheiro" },
+  { "nome": "Alto da Boa Vista" },
+  { "nome": "Borba Gato" },
+  { "nome": "Brooklin" },
+  { "nome": "Campo Belo" },
+  { "nome": "Eucaliptos" },
+  { "nome": "Moema" },
+  { "nome": "AACD-Servidor" },
+  { "nome": "Hospital São Paulo" },
+  { "nome": "Santa Cruz" },
+  { "nome": "Chácara Klabin" },
+  { "nome": "Brasilândia" },
+  { "nome": "Vila Cardoso" },
+  { "nome": "Itaberaba" },
+  { "nome": "João Paulo I" },
+  { "nome": "Freguesia do Ó" },
+  { "nome": "Santa Marina" },
+  { "nome": "Água Branca" },
+  { "nome": "SESC-Pompéia" },
+  { "nome": "Perdizes" },
+  { "nome": "PUC-Cardoso de Almeida" },
+  { "nome": "Angélica-Pacaembu" },
+  { "nome": "Higienópolis-Mackenzie" },
+  { "nome": "14 Bis" },
+  { "nome": "Bela Vista" },
+  { "nome": "São Joaquim" },
+  { "nome": "Ipiranga" },
+  { "nome": "Vila Prudente" },
+  { "nome": "Oratório" },
+  { "nome": "São Lucas" },
+  { "nome": "Camilo Haddad" },
+  { "nome": "Vila Tolstói" },
+  { "nome": "Vila União" },
+  { "nome": "Jardim Planalto" },
+  { "nome": "Sapopemba" },
+  { "nome": "Fazenda da Juta" },
+  { "nome": "São Mateu" },
+  { "nome": "Iguatemi" },
+  { "nome": "Jequiriçá" },
+  { "nome": "Jacú-Pêssego" },
+  { "nome": "Érico Semer" },
+  { "nome": "Márcio Beck" },
+  { "nome": "Cidade Tiradentes" },
+  { "nome": "Hospital Cidade Tiradentes" },
+  { "nome": "São Paulo-Morumbi" },
+  { "nome": "Estádio Morumbi" },
+  { "nome": "Américo Mourano" },
+  { "nome": "Paraisópolis" },
+  { "nome": "Panamby" },
+  { "nome": "Morumbi" },
+  { "nome": "Chucri Zaidan" },
+  { "nome": "Vila Cordeiro" },
+  { "nome": "Campo Belo" },
+  { "nome": "Vereador José Diniz" },
+  { "nome": "Brooklin Paulista" },
+  { "nome": "Congonhas · Jardim Aeroporto" },
+  { "nome": "Vila Paulista" },
+  { "nome": "Vila Babilônia" },
+  { "nome": "Cidade Leonor" },
+  { "nome": "Hospital Sabóia" },
+  { "nome": "Jabaquara" }]
+  nome = 'nome';
+  constructor(public  appsevice:AppService) { }
+  sel(op) {
+    this.option = op;
+    this.onchange.emit(op);
+  }
+  ngOnInit(): void {
+  }
+
+}
