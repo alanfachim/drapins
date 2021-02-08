@@ -3,7 +3,10 @@ const { BlobServiceClient, } = require('@azure/storage-blob');
 const { v1: uuid } = require('uuid');
 const decrypt = require("../decrypt.js");
 
+const aws = require("../awsConvert.js");
+
 module.exports = async function (context, req) {
+  req = aws(context, req);
   responseMessage = [];
   const subdir = req.query.catalogo ? req.query.catalogo:'SP';
   const blobServiceClient = BlobServiceClient.fromConnectionString(await decrypt("BLOB_CONNECTIONSTRING"));
@@ -98,6 +101,11 @@ function cleanString(input) {
   }
 
 
-
-  return output;
+ //lambda response
+ console.log(output);
+ let response = {
+   statusCode: 200, 
+   body: JSON.stringify(output)
+ };
+ return output; 
 }

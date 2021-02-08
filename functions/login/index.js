@@ -1,12 +1,16 @@
 //@ts-check 
-const db = require('../share/app')
+const db = require('../share/app'); 
+const aws = require("../awsConvert.js");
+const decrypt = require("../decrypt.js");
+const sgMail = require('@sendgrid/mail');
+
 function randomString(length, chars) {
   var result = '';
   for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 }
 module.exports = async function (context, req) {
-
+  req = aws(context, req);
   if (req.query.user !== undefined && req.query.password !== undefined) {
     await db.queryContainer('CLIENTE', req.query.user)
       .then((data) => {
@@ -74,20 +78,22 @@ module.exports = async function (context, req) {
             throw 'Usuário já existe, faça o login.';
           }
         }).then(() => {
-          console.log('usuário cad')
-        }).then(() => {
+          console.log('usuário cad');
+          return decrypt("SENDGRID_KEY");
+        }).then((key) => {
           cliente.email = req.query.email.trim();
           var subj = [`DRA Pins - Usuário Cadastrado`];
           var body = [`<h4>Olá ${req.query.nome}</h4><p>Informações para acessar sua conta</p><p>Usuário: ${req.query.email}</p><p>Senha: ${req.query.secret.trim()}</p> `];
-          const sgMail = require('@sendgrid/mail');
-          sgMail.setApiKey(await decrypt("SENDGRID_KEY"));
+          
+ 
+          sgMail.setApiKey(key);
           const msg = {
             to: req.query.email.trim(),//req.query.email,
             from: 'vendas@drapins.com',//config.to,
             subject: subj[0],
             html: body[0],
           };
-          sgMail.send(msg);
+          return sgMail.send(msg);
         }).then(() => {
           context.res = {
             body: {
@@ -110,5 +116,11 @@ module.exports = async function (context, req) {
       };
     }
   }
-
+//lambda response
+console.log(context.res);
+let response = {
+  statusCode: 200, 
+  body: JSON.stringify(context.res)
+};
+return response;
 } 

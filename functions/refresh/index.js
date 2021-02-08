@@ -2,7 +2,10 @@ const func = require("../share/func");
 const { BlobServiceClient, } = require('@azure/storage-blob');
 const { v1: uuid } = require('uuid');
 
+const aws = require("../awsConvert.js");
+
 module.exports = async function (context, req) {
+  req = aws(context, req);
   responseMessage = [];
   const subdir = req.query.catalogo;
 
@@ -34,6 +37,14 @@ module.exports = async function (context, req) {
     // status: 200, /* Defaults to 200 */
     body: responseMessage
   };
+  //lambda response
+  console.log(context.res);
+  let response = {
+    statusCode: 200,
+    body: JSON.stringify(context.res)
+  };
+  return response;
+
 }
 
 async function CopyFilesFromOneFolderToAnother(rootDirectory, sourceFolderName, destinationFolderName, config, serviceClient, data) {
@@ -51,9 +62,9 @@ async function CopyFilesFromOneFolderToAnother(rootDirectory, sourceFolderName, 
 
   for await (const sourceFile of allSourceFiles) {
     var a = [];
-    var n=sourceFile.name.split('-');
+    var n = sourceFile.name.split('-');
     a = data["produtos"].filter(function (objLista) {
-      return objLista.SKU == (n.length>1? n[1].trim():'');
+      return objLista.SKU == (n.length > 1 ? n[1].trim() : '');
     });
     var novoNome = '';
     sourceFile.name.split('-').forEach((element, i) => {
@@ -67,7 +78,7 @@ async function CopyFilesFromOneFolderToAnother(rootDirectory, sourceFolderName, 
     } catch (error) {
       console.log(error);
     }
-    
+
   }
 
 }

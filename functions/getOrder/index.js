@@ -1,8 +1,11 @@
 
 
-const db = require('../share/app')
+const db = require('../share/app');
+
+const aws = require("../awsConvert.js");
 
 module.exports = async function teste(context, req) {
+  req = aws(context, req);
   if (db.validatoken(req.query.token, req.query.user.trim(), (req.headers['x-forwarded-for'] || '').split(',').pop().trim())) {
     await db.queryContainer('CLIENTE', req.query.user.trim())
       .then((data) => {
@@ -43,5 +46,11 @@ module.exports = async function teste(context, req) {
   } else {
     context.res = { erro: 'Usuário não autenticado' + (req.query.token || '') };
   }
-
+ //lambda response
+ console.log(context.res);
+ let response = {
+   statusCode: 200, 
+   body: JSON.stringify(context.res)
+ };
+ return response;
 }

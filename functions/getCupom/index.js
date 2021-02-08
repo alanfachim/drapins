@@ -1,13 +1,14 @@
 //@ts-check 
 const db = require('../share/app');
-const func = require('../share/func');
+const func = require('../share/func'); 
+const aws = require("../awsConvert.js");
 function randomString(length, chars) {
   var result = '';
   for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 }
 module.exports = async function (context, req) {
-
+  req = aws(context, req);
   var config = await func();
 
   var a = config["cupons"].filter(function (objLista) {
@@ -18,7 +19,7 @@ module.exports = async function (context, req) {
       context.res = {
         body: { msg: a[0].value }
       };
-    }else{
+    } else {
       context.res = {
         body: { erro: 'Cupom expirado!' }
       };
@@ -28,5 +29,11 @@ module.exports = async function (context, req) {
       body: { erro: 'Cupom invalido!' }
     };
   }
-
+  //lambda response
+  console.log(context.res);
+  let response = {
+    statusCode: 200,
+    body: JSON.stringify(context.res)
+  };
+  return response;
 } 

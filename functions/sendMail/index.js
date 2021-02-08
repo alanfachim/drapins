@@ -15,6 +15,8 @@ const app = require('../share/app');
 const db = require('../share/app')
 const func = require('../share/func');
 const decrypt = require("./decrypt.js");
+
+const aws = require("../awsConvert.js");
 const readFileAsync = util.promisify(QRCode.toDataURL);
 
 function calcule(l, frete, desconto_taxa) {
@@ -60,7 +62,7 @@ function randomString(length, chars) {
   return result;
 }
 module.exports = async function (context, req) {
-
+  req = aws(context, req);
 
   responseMessage = [];
   var request = require('request').defaults({ encoding: null });
@@ -81,7 +83,7 @@ module.exports = async function (context, req) {
       return;
     }
   } else {
-    if (req.query.cupom.trim()!= ''&& req.query.cupom.trim()!= 'undefined'&& req.query.cupom.trim()!= undefined) {
+    if (req.query.cupom.trim() != '' && req.query.cupom.trim() != 'undefined' && req.query.cupom.trim() != undefined) {
       context.res = {
         body: { erro: 'Cupom invalido!' }
       };
@@ -138,7 +140,7 @@ module.exports = async function (context, req) {
   var subj = [`DRA Pins - Solicitação de Compra ${pedido}`];
   var body = [`<h4>Olá ${nomecliente}</h4>${novousuarip}<p>Pagamento solicitado para compra,  <br> clique <a href="https://drapins.azurewebsites.net/cliente?&user=${req.query.email}&action=order">aqui</a> para ver seus pedidos</p>`];
   const sgMail = require('@sendgrid/mail');
-  
+
 
   sgMail.setApiKey(await decrypt("SENDGRID_KEY"));
   const msg = {
@@ -178,7 +180,7 @@ module.exports = async function (context, req) {
     envio: envio,
     st: '1',
     cupom: req.query.cupom.trim(),
-    formaPag: req.query.formaPag.trim(), 
+    formaPag: req.query.formaPag.trim(),
     messages: [],
     total: extrato.total,
     desconto: extrato.desconto,
@@ -283,9 +285,13 @@ module.exports = async function (context, req) {
         return;
       });
 
-  }
-
-
-
+  } 
+  //lambda response
+  console.log(context.res);
+  let response = {
+    statusCode: 200,
+    body: JSON.stringify(context.res)
+  };
+  return response;
 
 }

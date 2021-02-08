@@ -1,5 +1,8 @@
 //@ts-check 
 const db = require('../share/app');
+const aws = require("../awsConvert.js");
+const decrypt = require("../decrypt.js");
+
 const { BlobServiceClient, } = require('@azure/storage-blob');
 function randomString(length, chars) {
   var result = '';
@@ -7,15 +10,15 @@ function randomString(length, chars) {
   return result;
 }
 module.exports = async function (context, req) {
-
+  req = aws(context, req);
   var multiparty = require('parse-multipart');
   var bodyBuffer = Buffer.from(req.body);
   var boundary = multiparty.getBoundary(req.headers['content-type']);
   var parts = multiparty.Parse(bodyBuffer, boundary);
-
-  const blobServiceClient = BlobServiceClient.fromConnectionString("DefaultEndpointsProtocol=https;AccountName=alanfachim;AccountKey=6iStvaCjzMi8xtBq4HFRPb8HCqdaxaMCQwtjmEiyvePZLzQ7o6fD1JZ+VJ98Pqj25HCeIRWuEBArdjiZcTTwig==;EndpointSuffix=core.windows.net");
+  const BLOB_CONNECTIONSTRING = await decrypt("BLOB_CONNECTIONSTRING");
+  const blobServiceClient = BlobServiceClient.fromConnectionString(BLOB_CONNECTIONSTRING);
   const containerClient = blobServiceClient.getContainerClient('$web');
-  const filename=req.query.pedido+'-'+parts[0].filename;
+  const filename = req.query.pedido + '-' + parts[0].filename;
   const blockBlobClient = containerClient.getBlockBlobClient(filename);
 
   if (req.query.user !== undefined) {
@@ -46,7 +49,7 @@ module.exports = async function (context, req) {
         //fs.readFile(req.files.file.path, function(err, data){
         // Do something with the data (which holds the file information)
         //});
-        blockBlobClient.upload( parts[0].data, parts[0].data.length);
+        blockBlobClient.upload(parts[0].data, parts[0].data.length);
       })
       .catch(error => {
         context.res = {
@@ -58,5 +61,11 @@ module.exports = async function (context, req) {
       body: { erro: 'dados invalidos' }
     };
   }
-
+  //lambda response
+  console.log(context.res);
+  let response = {
+    statusCode: 200,
+    body: JSON.stringify(context.res)
+  };
+  return response;
 } 
