@@ -7,9 +7,9 @@ import { LoginComponent } from './cliente/login/login.component';
 import { RecipesComponent } from './recipes/recipes.component';
 
 const appRoutes: Routes = [
-    { path: 'admin', component: AdminComponent },
-    { path: 'cliente', component: ClienteComponent },
-    { path: 'login', component: LoginComponent },
+    { path: 'index.html/admin', component: AdminComponent },
+    { path: 'index.html/cliente', component: ClienteComponent },
+    { path: 'index.html/login', component: LoginComponent },
     { path: '', component: RecipesComponent },
 
 ];

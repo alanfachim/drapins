@@ -1,13 +1,13 @@
 
 
-<app-header (click)="click()"></app-header>
+<app-header (onclickCatalogo)="click()"></app-header>
 
-<div class="container p-0">
+<div class="container p-0 shadow">
   
   <div class="row no-gutters bg-white"> 
     <div class="col mr-md-3 ml-md-3">
         <div class="row no-gutters"> 
-            <div class="col pt-4 bg-white " style="max-width: 1095px;"><app-recipes-list (onload)="onloadfinished()"></app-recipes-list> </div>
+            <div class="col pt-4 bg-white " style="max-width: 1065px;"><app-recipes-list (onload)="onloadfinished()" [deviceType]="deviceType"></app-recipes-list> </div>
                     
             </div>
     </div>

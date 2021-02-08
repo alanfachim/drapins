@@ -6,7 +6,7 @@
     "my-first-app": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
+      "root": "teste/",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -35,7 +35,7 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/chart.js/dist/Chart.js", 
               "node_modules/hammerjs/hammer.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" 
                          ]
           },
           "configurations": {
@@ -45,7 +45,7 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ],
+              ], 
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -135,5 +135,6 @@
   "defaultProject": "my-first-app",
   "cli": {
     "analytics": "4adb78a0-08e2-4a97-889f-4c293e914f05"
+
   }
 }

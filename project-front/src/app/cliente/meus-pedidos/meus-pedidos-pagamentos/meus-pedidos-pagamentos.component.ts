@@ -10,24 +10,37 @@ export class MeusPedidosPagamentosComponent implements OnInit {
   @Input()
   public pagamentos: any[];
   @Input()
+  public pagSelecionado: string;
+ 
+  @Input()
   public pedido: any;
   fileToUpload: File = null;
   constructor(private appsevice: AppService) { }
-
-  ngOnInit(): void {
+  carteira = '';
+  enter(c) {
+    this.carteira = c;
   }
-  handleFileInput(files: FileList ) {
+  ngOnInit(): void {
+    this.pagSelecionado=this.pagamentos[0].carteira;
+  }
+  seleciona(s){
+    this.pagSelecionado=s;
+  }
+  toreal(n) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n);
+  }
+  handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.uploadFileToActivity(this.pedido.codigo);
-}
-clear(){
-  this.pedido.comprovante=undefined;
-}
-getname(n){
-  var ini=n.split('-')[0]+'-';
-  return n.replace(ini,"");
-}
-uploadFileToActivity(pedido) {
-  this.appsevice.postFile(this.fileToUpload,pedido,(data)=>{this.pedido.comprovante=data["result"];});
-}
+  }
+  clear() {
+    this.pedido.comprovante = undefined;
+  }
+  getname(n) {
+    var ini = n.split('-')[0] + '-';
+    return n.replace(ini, "");
+  }
+  uploadFileToActivity(pedido) {
+    this.appsevice.postFile(this.fileToUpload, pedido, (data) => { this.pedido.comprovante = data["result"]; });
+  }
 }

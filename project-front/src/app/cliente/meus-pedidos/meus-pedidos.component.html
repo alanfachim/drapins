@@ -47,6 +47,16 @@
                             </div>
 
                         </div>
+                        <div class="container" *ngIf="pedido.desconto>0"> 
+                            <div class="row">
+                                <div class="col">
+                                    Desconto
+                                </div>
+                                <div class="col">
+                                    - R$ {{pedido.desconto}}
+                                </div>
+                            </div>
+                        </div>
                         <div class="container"> 
                             <div class="row">
                                 <div class="col">
@@ -69,8 +79,8 @@
                 </div>
                 <div class="row">
                     <div class="col"> 
-                        <app-meus-pedidos-pagamentos *ngIf="!xs"  [pagamentos]="pedido.pagamentos" [pedido]="pedido"></app-meus-pedidos-pagamentos> 
-                        <app-meus-pedidos-pagamentos-xs *ngIf="xs" [pagamentos]="pedido.pagamentos" [pedido]="pedido"></app-meus-pedidos-pagamentos-xs> 
+                        <app-meus-pedidos-pagamentos *ngIf="!xs"  [pagamentos]="pedido.pagamentos" [pedido]="pedido" [pagSelecionado]="pedido.formaPag"></app-meus-pedidos-pagamentos> 
+                        <app-meus-pedidos-pagamentos-xs *ngIf="xs" [pagamentos]="pedido.pagamentos" [pedido]="pedido" [pagSelecionado]="pedido.formaPag"></app-meus-pedidos-pagamentos-xs> 
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -81,10 +91,9 @@
                         <hr>
                     </div>
                 </div>
-                <div class="row">
-
+                <div class="row"> 
                     <div class="col p-0">
-                        <app-meus-pedidos-status *ngIf="pedido.envio=='Correios'"></app-meus-pedidos-status>
+                        <app-meus-pedidos-status *ngIf="pedido.envio=='Correios'" [st]="pedido.st" [rastreio]="pedido.rastreio" [estimativa]="pedido.estimativa"></app-meus-pedidos-status>
                         <div class="container p-sm-1 p-md-3 p-0" *ngIf="pedido.envio!='Correios'">
                             <div class="card pt-3 p-0 m-0 text-center panel-heading" style="overflow: hidden;">
                                 <p>Voce escolheu a senguinte forma de envio: <b class="font-weight-bold"> {{pedido.envio}}</b></p>

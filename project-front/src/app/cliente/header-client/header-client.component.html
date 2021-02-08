@@ -6,7 +6,7 @@
         aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation" style="border: 0px;">
        
         <a class="nav-link btn btn-danger" [ngClass]="appsevice.Catalogo!='mg'?'':'btn-sel'"  
-            href="/">Voltar à loja</a> 
+            href="/index.html">Voltar à loja</a> 
         <button class="navbar-toggler btn btn-outline-primary" type="button" data-toggle="collapse"
             data-target="#collapsibleNavId" aria-expanded="true" aria-label="Toggle navigation"
             (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapsibleNavId">
@@ -28,8 +28,8 @@
         <div ngbDropdown class="" *ngIf="(appsevice.cliente!==undefined && appsevice.cliente.nome!='')&&currentWindowWidth">
             <button class="btn btn-link text-white" id="dropdownBasic1" ngbDropdownToggle>{{appsevice.cliente.nome}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-right">
-              <a style="color: blueviolet !important;" href="/cliente?token={{appsevice.token}}&user={{appsevice.cliente.email}}&action=order" ngbDropdownItem>Meus Pedidos</a>
-              <a style="color: blueviolet !important;" href="/cliente?token={{appsevice.token}}&user={{appsevice.cliente.email}}&action=profile" ngbDropdownItem>Perfil</a>
+              <a style="color: blueviolet !important;" href="/index.html/cliente?token={{appsevice.token}}&user={{appsevice.cliente.email}}&action=order" ngbDropdownItem>Meus Pedidos</a>
+              <a style="color: blueviolet !important;" href="/index.html/cliente?token={{appsevice.token}}&user={{appsevice.cliente.email}}&action=profile" ngbDropdownItem>Perfil</a>
               <a style="color: blueviolet !important;" (click)="appsevice.logout()" ngbDropdownItem>Sair</a>
             </div>
           </div> 

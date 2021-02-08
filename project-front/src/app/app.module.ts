@@ -37,12 +37,13 @@ import { MeusPedidosPagamentosXsComponent } from './cliente/meus-pedidos/meus-pe
 import { HeaderClientComponent } from './cliente/header-client/header-client.component';
 import { RootComponent } from './admin/root/root.component';
 import { AdminComponent } from './admin/admin.component';
+import { NguCarouselModule } from '@ngu/carousel'; 
 
  
 
 @NgModule({
-  declarations: [AppComponent, MeusPedidosComponent,MeusPedidosPagamentosComponent, MeusPedidosListaComponent,  HeaderComponent, ClienteComponent,RecipesComponent, ShoppingListComponent, ShoppingEditComponent, RecipesListComponent, RecipesDetailComponent, RecipesItemComponent, CarrinhoComponent, PagamentosComponent, DadosClienteComponent, ExtratoComponent, CarrinhoListaComponent, AdmimComponent, MeusPedidosStatusComponent, LoginComponent, CarrinhoEntregaComponent, ClienteChatComponent, MeusPedidosPagamentosXsComponent,   HeaderClientComponent, RootComponent, AdminComponent],
-  imports: [CommonModule , BrowserModule, FormsModule, HttpClientModule,NgbModule,FontAwesomeModule,QRCodeModule,ReactiveFormsModule, AutocompleteLibModule,AppRoutingModule,NgbNavModule],
+  declarations: [ AppComponent, MeusPedidosComponent,MeusPedidosPagamentosComponent, MeusPedidosListaComponent,  HeaderComponent, ClienteComponent,RecipesComponent, ShoppingListComponent, ShoppingEditComponent, RecipesListComponent, RecipesDetailComponent, RecipesItemComponent, CarrinhoComponent, PagamentosComponent, DadosClienteComponent, ExtratoComponent, CarrinhoListaComponent, AdmimComponent, MeusPedidosStatusComponent, LoginComponent, CarrinhoEntregaComponent, ClienteChatComponent, MeusPedidosPagamentosXsComponent,   HeaderClientComponent, RootComponent, AdminComponent],
+  imports: [CommonModule , BrowserModule, FormsModule, HttpClientModule,NgbModule,FontAwesomeModule,QRCodeModule,ReactiveFormsModule, AutocompleteLibModule,AppRoutingModule,NgbNavModule,NguCarouselModule],
   providers: [NgbActiveModal], 
   bootstrap: [AppComponent]
 })

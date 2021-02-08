@@ -1,14 +1,13 @@
 <div class="row">
-    <div class="card text-white bg-success  m-sm-1 m-md-3 m-0">
+    <div class="card text-white bg-primary  m-sm-1 m-md-3 m-0">
 
         <div class="card-header">
             <div class="conteiner  ">
                 <div class="row">
                     <div class="col-md">
                         <div class="conteiner">
-                            <div class="rowr">
-                                <h6 class="ml-1" style="color: mediumblue;"> Escolha uma forma de pagamento</h6>
-                                <p class="ml-3 text-justify">Após Concluir o pagamento favor enviar o
+                            <div class="rowr" style=" font-size: smaller; ">
+                                <p class="ml-3  ">Após Concluir o pagamento favor enviar o
                                     comprovante clicando no botão ou pelo email <b
                                         class="font-weight-bold">{{pagamentos[0].email}}</b>, ou instagram
                                     <b class="font-weight-bold">{{pagamentos[0].instagram}}</b>
@@ -18,13 +17,24 @@
                     </div>
                     <div class="col-md" *ngIf="pedido.comprovante===undefined">
 
-                        <label _ngcontent-qki-c113="" class="btn btn-primary p-1 ml-5 " style="float: center;"> <input
+                        <label _ngcontent-qki-c113="" class="btn btn-light p-1  " style="float: center;"> <input
                                 type="file" id="file" (change)="handleFileInput($event.target.files)" hidden>
                             <h6 _ngcontent-qki-c113="" class="ml-3" style="
                             float: left;
                         ">Anexar comprovante</h6><i class="fa fa-paperclip pl-2"
                                 style="font-size: 22px;float: right;"></i>
                         </label>
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle p-1  " type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Alterar Forma de Pagamento
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item"   *ngFor="let i of pagamentos "
+                                    (click)="seleciona(i.carteira)">{{i.carteira}}</a>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="col-md" *ngIf="pedido.comprovante!==undefined">
@@ -41,9 +51,33 @@
         <div class="card-body p-3">
             <div class="conteiner">
                 <div class="row" *ngFor="let i of pagamentos; let ix = index">
-                    <div class="col">
-                        <hr *ngIf="ix!=0">
-                        <div class="container">
+                    <div class="col p-2" *ngIf="i.carteira==pagSelecionado">
+
+ 
+                        <div class="container" *ngIf="i.carteira=='Pix' || i.carteira=='PicPay'">
+                            <div class="row rounded" style="background-color: white; ">
+                                <a class="col-5 p-0" (click)="redirect(i.link,i.chave)">
+                                    <img class="  m-3" style="max-width: 100px;" src="{{i.qrcode}}">
+                                </a>
+
+                                <div class="col text-right">
+                                    <div class="mt-3 mb-0 text-center pb-1"
+                                        style="border: 1px solid #ffe0e0;  border-radius: 5px;">
+                                        <div class="d-inline pl-2" style="color: darkcyan; font-size: 12px;">{{i.chave}}
+                                        </div>
+                                    </div>
+                                    <div class="mt-1 ml mb-0 text-center"
+                                        style="border: 1px solid #ffe0e0; padding: 3px; border-radius: 5px; font-size: 12px;">
+                                        <i class="far fa-money-bill-alt pr-2 d-inline ml-2" style="color: gray;"></i>
+                                        <div class="d-inline" style="color: darkcyan;"> {{toreal(i.total)}}
+                                        </div>
+                                    </div><img style="max-width: 100px; padding: 15px;  " src="{{i.logocarteira}}">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="container" *ngIf="i.carteira!='Pix'&&i.carteira!='PicPay'">
                             <div class="row">
                                 <div class="col" *ngIf="!i.carteira.includes('transf')">
                                     <h6 class="text-center">Transferencia via {{i.carteira}}</h6>

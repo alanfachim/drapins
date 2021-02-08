@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from '../appservice.service';
 
 @Component({
@@ -12,8 +13,18 @@ export class AdminComponent implements OnInit {
 
   pedidos: any[] = [];
   constructor(private http: HttpClient, private route: ActivatedRoute, public appsevice: AppService) { }
-
-
+  estimativa: NgbDateStruct;
+  rastreio:string;
+  onSubmit(a,b){
+    this.appsevice.updateOrder(a, b, (data) => {
+      var p = this.pedidos.filter(function (obj) {
+        return obj.codigo == b;
+      }); 
+      p["estimativa"]=this.estimativa;
+      p["rastreio"]=this.rastreio;
+      alert('formulário salvo');
+    }, (erro) => { },"&rastreio="+this.rastreio+"&estimativa="+`${this.estimativa.day}/${this.estimativa.month}/${this.estimativa.year}`)
+  }
   chat(p) {
     p.exp_chat = !p.exp_chat;
   }
@@ -47,7 +58,13 @@ export class AdminComponent implements OnInit {
     return ret;
 
   }
-
+  seleciona(a,b,i,p){
+    this.appsevice.updateOrder(a, b, (data) => {
+     
+      p.status=i;
+    }, (erro) => { },"&status="+i+"&st="+i.substring(1,0))
+  }
+  
   cancel(a, b) {
     if (confirm('Voce tem certesa que deseja cancelar este pedido?')) {
       this.appsevice.cancelOrder(a, b, (data) => {

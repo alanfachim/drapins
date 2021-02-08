@@ -41,15 +41,15 @@ export class HeaderComponent implements OnInit {
     }
   }
   @Output()
-  click = new EventEmitter();
+  onclickCatalogo = new EventEmitter();
 
   @HostListener('window:resize')
   onResize() {
     this.currentWindowWidth = window.innerWidth > 860;
   }
-onclickCatalogo(e){
-  this.appsevice.nextCatalogo(e);
-  this.click.emit();
+onclickCatalogof(e){
+  this.appsevice.nextCatalogo(e); 
+  this.onclickCatalogo.emit();
 }
   getstate(){
     if(this.cat=='sp')

@@ -89,6 +89,15 @@
                         <div class="col">
                             <p class="m-0">{{appsevice.cliente.cep}}</p>
                         </div>
+                    </div> 
+                    <div class="row">
+                        <form  [formGroup]="cupomForm" (ngSubmit)="onSubmitCupom()" class="input-group    m-3 p-0" style="max-width: 20rem;"  >
+                            <input formControlName="search"  type="text" class="form-control" [(ngModel)]="inp" placeholder="Insira seu cupom"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append" *ngIf="!xs">
+                                <button class="btn btn-primary  " (click)="onSubmitCupom()" type="submit"><span *ngIf="cupom_loader" class="spinner-border spinner-border-sm mr-1"></span>Procurar </button>
+                            </div>
+                        </form>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -98,6 +107,37 @@
                     <!-- meios de entrega -->
                     <app-carrinho-entrega [disabled]="pedidogerado || (totalSP>0 && totalMG>0)" (onchange)="calcule()" options="1" [mg]="totalMG>0" [sp]="totalSP>0"></app-carrinho-entrega>
                   
+                    <div class="row mt-1">
+                        <div class="col">
+                            <div class="separator">Forma de pagamento.</div>
+                        </div>
+                    </div>
+                    <form class="m-3">
+                    <fieldset>
+                    <div class=" form-check form-check-inline mr-4">
+                        <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel('PicPay')" id="exampleRadios1"
+                            value="option1"  [disabled]="pedidogerado" checked="true">
+                        <label class="form-check-label" for="exampleRadios1">
+                            <img src="https://logodownload.org/wp-content/uploads/2018/05/picpay-logo.png" style=" max-height: 30px;  ">
+                        </label>
+                    </div>
+                    <div class=" form-check form-check-inline mr-4" >
+                        <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel('Pix')" id="exampleRadios2"
+                            value="option2" [disabled]="pedidogerado" >
+                        <label class="form-check-label" for="exampleRadios2">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Logo_-_pix_powered_by_Banco_Central_%28Brazil%2C_2020%29.png" style=" max-height: 30px;  ">
+                        </label>
+                    </div> 
+                    <div class=" form-check form-check-inline" >
+                        <input class="form-check-input" type="radio" name="exampleRadios" (click)="sel('transferencia')" id="exampleRadios2"
+                            value="option2" [disabled]="pedidogerado" >
+                        <label class="form-check-label" for="exampleRadios2">
+                            <img src="https://www.bb.com.br/pbb/img.ImgWriter?codigo=40846&origem=CCI&v=202011051" style=" max-height: 20px;  "> Tranferencia bancária 
+                           
+                        </label>
+                    </div> 
+                </fieldset>
+            </form>
                     <div class="row mt-1">
                         <div class="col">
                             <div class="separator">Descritivo.</div>
@@ -135,6 +175,14 @@
                             <p class="m-0"> {{sfreteMG}}</p>
                         </div>
                     </div>
+                    <div class="row p-0 mono" *ngIf="desconto>0">
+                        <div class="col">
+                            <b class="m-0  " style="color: green;">Desconto [{{inp}}]</b>
+                        </div>
+                        <div class="col">
+                            <p class="m-0 font-weight-bold" style="color: green;">-{{toreal(desconto)}}</p>
+                        </div>
+                    </div>
                     <div class="row p-0 ">
                         <div class="col">
                             <b class="m-0 font-weight-bold">Total</b>
@@ -144,6 +192,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="container" *ngIf="pedido!=''">
                     <hr>
@@ -157,8 +206,9 @@
                             </h6>
                         </div>
                     </div>
-                    <app-meus-pedidos-pagamentos *ngIf="!xs"  [pagamentos]="qrcode" [pedido]="pedido"></app-meus-pedidos-pagamentos> 
-                    <app-meus-pedidos-pagamentos-xs *ngIf="xs" [pagamentos]="qrcode" [pedido]="pedido"></app-meus-pedidos-pagamentos-xs> 
+                    
+                    <app-meus-pedidos-pagamentos *ngIf="!xs"  [pagamentos]="qrcode" [pedido]="pedido" [pagSelecionado]="pagamento"></app-meus-pedidos-pagamentos> 
+                    <app-meus-pedidos-pagamentos-xs *ngIf="xs" [pagamentos]="qrcode" [pedido]="pedido" [pagSelecionado]="pagamento"></app-meus-pedidos-pagamentos-xs> 
                 </div>
             </ng-template>
         </li>

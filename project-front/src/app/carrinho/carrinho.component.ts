@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbNav } from '@ng-bootstrap/ng-bootstrap';
 import { AppService, Client } from '../appservice.service';
 import { CarrinhoEntregaComponent } from './carrinho-entrega/carrinho-entrega.component';
@@ -29,14 +29,20 @@ export class CarrinhoComponent implements OnInit {
   stotal: string;
   stotalSP: string;
   stotalMG: string;
+  pagamento: string;
   sfreteSP: string;
+  desconto: number = 0;
   sfreteMG: string;
   msgtemp: boolean = false;
   token: string;
   falhalogin: boolean;
   user: any;
   invalidsingin: boolean = false;
+  cupomForm: any;
   pedidogerado: boolean = false;
+  public inp: string;
+  desconto_taxa: any[] = [];
+  cupom_loader = false;
 
   get usuario() { return this.clienteForm.get('nome').value != ''; }
   get senha() { return this.clienteForm.get('senha').value != ''; }
@@ -46,18 +52,37 @@ export class CarrinhoComponent implements OnInit {
   @ViewChild(CarrinhoEntregaComponent) envio: CarrinhoEntregaComponent;
 
   public qrcode: QRPay[];
-  constructor(public modal: NgbActiveModal, private http: HttpClient, public appsevice: AppService) {
+  constructor(private formBuilder: FormBuilder, public modal: NgbActiveModal, private http: HttpClient, public appsevice: AppService) {
     if (appsevice.cliente.nome != '') {
       this.activeId = 2;
       this.invalidsingin = true
     }
 
   }
+  onSubmitCupom() {
+    this.cupom_loader = true;
+    this.appsevice.getCupom(this.inp, (result) => {
+      this.desconto_taxa = result;
+      this.calcule();
+      this.cupom_loader = false;
+    },
+      (erro) => {
+        this.desconto = 0;
+        this.calcule();
+        alert(erro);
+        this.cupom_loader = false;
+      });
+  }
   @HostListener('window:resize')
   onResize() {
     this.xs = window.innerWidth < 560;
   }
   ngOnInit(): void {
+    this.loading = false;
+    this.pagamento='PicPay';
+    this.cupomForm = this.formBuilder.group({
+      search: ['']
+    });
     this.xs = window.innerWidth < 560;
     this.calcule();
     this.appsevice.cartList.subscribe(c => {
@@ -104,18 +129,37 @@ export class CarrinhoComponent implements OnInit {
       case 12:
         this.freteMG = 0;
         break;
-        case 13:
-        this.freteMG =  this.freteMG > 0 ? this.appsevice.freteJDF : 0;
+      case 13:
+        this.freteMG = this.freteMG > 0 ? this.appsevice.freteJDF : 0;
         break;
 
     }
     this.total = (fmg ? 0 : this.freteMG) + (fsp ? 0 : this.freteSP) + this.totalSP + this.totalMG;
+
+    this.desconto_taxa.forEach(element => {
+      if (element["cond"] == '-') {
+        if ((this.totalSP + this.totalMG) < element["objetivo"])
+          this.desconto = (this.totalSP + this.totalMG) * (element["valor"] / 100.0);
+      } else {
+        if ((this.totalSP + this.totalMG) >= element["objetivo"])
+          this.desconto = (this.totalSP + this.totalMG) * (element["valor"] / 100.0);
+      }
+
+    });
+
+
     this.stotalSP = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.totalSP);
     this.stotalMG = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.totalMG);
     this.sfreteMG = fmg ? 'Frete Gratis!' : new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.freteMG);
     this.sfreteSP = fsp ? 'Frete Gratis!' : new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.freteSP);
 
-    this.stotal = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.total);
+    this.stotal = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.total - this.desconto);
+  }
+  sel(a) {
+    this.pagamento = a;
+  }
+  toreal(n) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n);
   }
   submitFormValid(evt) {
     this.invalid = evt == 'INVALID';
@@ -127,6 +171,7 @@ export class CarrinhoComponent implements OnInit {
       this.data = this.ccomp.getdata();
       this.appsevice.validaUsuario(this.data.email, (value) => {
         if (!value) {
+          this.loading = false;
           this.submit_next(nav, login);
         }
       }, (erro) => { });
@@ -136,8 +181,9 @@ export class CarrinhoComponent implements OnInit {
   }
   submit_next(nav: NgbNav, login: boolean) {
     this.falhalogin = false;
-    this.loading = true;
+    
     if (login && this.activeId == 1) {
+      this.loading = true;
       this.user = this.clienteForm.get('nome').value;
       var senha = this.clienteForm.get('senha').value;
       this.appsevice.login(this.user, senha, (data) => {
@@ -171,10 +217,12 @@ export class CarrinhoComponent implements OnInit {
                       &numero=${this.appsevice.cliente.numero.trim()}
                       &endereco=${this.appsevice.cliente.endereco.trim()}
                       &cidade=${this.appsevice.cliente.cidade.trim()}
-                      &complemento=${this.appsevice.cliente.complemento.trim()} 
+                      &complemento=${this.appsevice.cliente.complemento?this.appsevice.cliente.complemento.trim():''} 
                       &estado=${this.appsevice.cliente.estado.trim()}
                       &secret=${senha}
                       &envio=${envio}
+                      &formaPag=${this.pagamento}
+                      &cupom=${this.inp}
                       &cep=${this.appsevice.cliente.cep}`, JSON.stringify(this.appsevice.cartList.getValue())).subscribe(data => {
         this.qrcode = data["pay"] as QRPay[];
         this.pedido = this.qrcode[0].pedido;
@@ -192,6 +240,8 @@ export class CarrinhoComponent implements OnInit {
       this.http.post(`https://alanapi.azurewebsites.net/api/sendMail?
                       &subj=0&email=${this.appsevice.cliente.email.trim()} 
                       &envio=${envio}
+                      &formaPag=${this.pagamento}
+                      &cupom=${this.inp}
                       &token=${this.appsevice.token.trim()}`, JSON.stringify(this.appsevice.cartList.getValue())).subscribe(data => {
         try {
           this.qrcode = data as QRPay[];
