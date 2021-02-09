@@ -19,11 +19,35 @@ Metadata:
     SemanticVersion: 0.0.1
     SourceCodeUrl: https://github.com/alanfachim/drapins
 Resources:
+  RootRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: '*'
   fn1:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: chat
-      KmsKeyArn: arn:aws:kms:sa-east-1:469122751664:key/eca81b90-07dd-433f-8182-2127da3c315b
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn 
       CodeUri: ./functions
       Handler: ./chat/index.handler
       Runtime: nodejs12.x
@@ -40,6 +64,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: getCupom
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./getCupom/index.handler
       Runtime: nodejs12.x
@@ -53,6 +81,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: getOrder
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./getOrder/index.handler
       Runtime: nodejs12.x
@@ -66,6 +98,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: getPic
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./getPic/index.handler
       Runtime: nodejs12.x
@@ -79,6 +115,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: login
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./login/index.handler
       Runtime: nodejs12.x
