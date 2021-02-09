@@ -132,6 +132,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: notifyUsers
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./notifyUsers/index.handler
       Runtime: nodejs12.x
@@ -145,6 +149,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: refresh
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./refresh/index.handler
       Runtime: nodejs12.x
@@ -158,6 +166,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: sendMail
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./sendMail/index.handler
       Runtime: nodejs12.x
@@ -171,6 +183,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: share
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./share/index.handler
       Runtime: nodejs12.x
@@ -184,6 +200,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: updateOrder
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./updateOrder/index.handler
       Runtime: nodejs12.x
@@ -197,6 +217,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: upload
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./upload/index.handler
       Runtime: nodejs12.x
@@ -210,6 +234,10 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: validUser
+      Role: 
+        Fn::GetAtt:
+          - RootRole
+          - Arn
       CodeUri: ./functions
       Handler: ./validUser/index.handler
       Runtime: nodejs12.x

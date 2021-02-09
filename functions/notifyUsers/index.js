@@ -45,7 +45,7 @@ module.exports = async function (context, req) {
   console.log(context.res);
   let response = {
     statusCode: 200,
-    body: JSON.stringify(context.res)
+    body: JSON.stringify(context.res.body)
   };
   return response;
  

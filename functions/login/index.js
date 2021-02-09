@@ -125,7 +125,7 @@ let response = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
 },
-  body: JSON.stringify(context.res)
+  body: JSON.stringify(context.res.body)
 };
 return response;
 } 
