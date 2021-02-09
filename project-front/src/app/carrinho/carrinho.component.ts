@@ -210,7 +210,7 @@ export class CarrinhoComponent implements OnInit {
   submitForm(senha, envio) {
     this.appsevice.pggerado = true;
     if (this.appsevice.token === undefined || this.appsevice.token == '') {
-      this.http.post(`https://alanapi.azurewebsites.net/api/sendMail?
+      this.http.post(`${window['env'].base_api}sendMail?
                       &subj=0&email=${this.appsevice.cliente.email.trim()}
                       &telefone=${this.appsevice.cliente.telefone.trim()}
                       &nome=${this.appsevice.cliente.nome.trim()}
@@ -237,7 +237,7 @@ export class CarrinhoComponent implements OnInit {
         this.pedidogerado = true;
       });
     } else {
-      this.http.post(`https://alanapi.azurewebsites.net/api/sendMail?
+      this.http.post(`${window['env'].base_api}sendMail?
                       &subj=0&email=${this.appsevice.cliente.email.trim()} 
                       &envio=${envio}
                       &formaPag=${this.pagamento}

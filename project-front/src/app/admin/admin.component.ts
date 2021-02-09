@@ -85,7 +85,7 @@ export class AdminComponent implements OnInit {
   }
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.http.get(`https://alanapi.azurewebsites.net/api/getOrder?user=${params['user']}&token=${params['token']}&admin=master `)
+      this.http.get(`${window['env'].base_api}getOrder?user=${params['user']}&token=${params['token']}&admin=master `)
         .subscribe((data) => {
           if (!data) {
             window.location.href = `./login?user=${params['user']}&action=order`

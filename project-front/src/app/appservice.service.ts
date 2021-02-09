@@ -17,7 +17,7 @@ export class Client {
 
 export class AppService {
   getCupom(cupom, callback,callbackErro) {
-    this.http.get(`https://alanapi.azurewebsites.net/api/getCupom?user=${this.cliente.email.trim()}&token=${this.token}&cupom=${cupom}`).subscribe(data => {
+    this.http.get(`${window['env'].base_api}getCupom?user=${this.cliente.email.trim()}&token=${this.token}&cupom=${cupom}`).subscribe(data => {
       if (data != null && data["msg"] !== undefined) {
         callback(data["msg"]);
       } else {
@@ -30,7 +30,7 @@ export class AppService {
   sendMessage(value: string, pedido: string, callback, callbackErro, user) {
     var euser = user == undefined ? `user=${this.cliente.email.trim()}` : `admin=${this.cliente.email.trim()}&user=${user}`
 
-    this.http.get(`https://alanapi.azurewebsites.net/api/chat?${euser}&token=${this.token}&msg=${value}&pedido=${pedido}`).subscribe(data => {
+    this.http.get(`${window['env'].base_api}chat?${euser}&token=${this.token}&msg=${value}&pedido=${pedido}`).subscribe(data => {
       if (data != null && data["msg"] !== undefined) {
         callback(data["msg"]);
       } else {
@@ -42,7 +42,7 @@ export class AppService {
   telcontsp: any;
   telcontmg: any;
   validaUsuario(value, callback, callbackErro) {
-    this.http.get(`https://alanapi.azurewebsites.net/api/validUser?user=${value}`).subscribe(data => {
+    this.http.get(`${window['env'].base_api}validUser?user=${value}`).subscribe(data => {
       if (data != null && data["valid"] !== undefined) {
         callback(data["valid"]);
       } else {
@@ -82,7 +82,7 @@ export class AppService {
 
       if (currentUser != null) {
         //valida token
-        this.http.get(`https://alanapi.azurewebsites.net/api/validUser?user=${currentUser.cliente.email}&token=${currentUser.token}`).subscribe(data => {
+        this.http.get(`${window['env'].base_api}validUser?user=${currentUser.cliente.email}&token=${currentUser.token}`).subscribe(data => {
           if (data != null && data["valid"] !== undefined && data["valid"] == true) {
             this.token = currentUser.token; // your token
             this.cliente = currentUser.cliente; // your token
@@ -98,14 +98,14 @@ export class AppService {
     return of(isTaken).pipe(delay(400));
   }
   postFile(fileToUpload: File, pedido, callback) {
-    const endpoint = `https://alanapi.azurewebsites.net/api/upload?user=${this.cliente.email.trim()}&token=${this.token}&pedido=${pedido}`;
+    const endpoint = `${window['env'].base_api}upload?user=${this.cliente.email.trim()}&token=${this.token}&pedido=${pedido}`;
     const formData: FormData = new FormData();
     formData.append('fileKey', fileToUpload, fileToUpload.name);
     return this.http.post(endpoint, formData, { headers: {} }).subscribe((data) => { callback(data) });
 
   }
   login(usuario, senha, callback, callbackErro) {
-    this.http.get(`https://alanapi.azurewebsites.net/api/login?user=${usuario}&password=${senha}`).subscribe(data => {
+    this.http.get(`${window['env'].base_api}login?user=${usuario}&password=${senha}`).subscribe(data => {
       if (data != null && data["cliente"] !== undefined && data["token"] !== undefined) {
         this.cliente = data["cliente"] as Client;
         this.token = data["token"];
@@ -119,7 +119,7 @@ export class AppService {
   }
 
   singin(cliente, callback, callbackErro, senha) {
-    this.http.get(`https://alanapi.azurewebsites.net/api/login?&cadastro=121&email=${cliente.email.trim()}
+    this.http.get(`${window['env'].base_api}login?&cadastro=121&email=${cliente.email.trim()}
     &telefone=${cliente.telefone.trim()}
     &nome=${cliente.nome.trim()}
     &numero=${cliente.numero.trim()}
@@ -141,7 +141,7 @@ export class AppService {
   }
 
   deletOrder(cliente, pedido, callback, callbackErro) {
-    this.http.get(`https://alanapi.azurewebsites.net/api/updateOrder?token=${this.token}&user=${cliente}&pedido=${pedido}&admin=${this.cliente.email}&delete=s&status=Finalizado`).subscribe(data => {
+    this.http.get(`${window['env'].base_api}updateOrder?token=${this.token}&user=${cliente}&pedido=${pedido}&admin=${this.cliente.email}&delete=s&status=Finalizado`).subscribe(data => {
       if (data != null) {
         callback(this.token);
       } else {
@@ -150,7 +150,7 @@ export class AppService {
     });
   }
   cancelOrder(cliente, pedido, callback, callbackErro) {
-    this.http.get(`https://alanapi.azurewebsites.net/api/updateOrder?token=${this.token}&user=${cliente}&pedido=${pedido}&admin=${this.cliente.email}&cancel=s`).subscribe(data => {
+    this.http.get(`${window['env'].base_api}updateOrder?token=${this.token}&user=${cliente}&pedido=${pedido}&admin=${this.cliente.email}&cancel=s`).subscribe(data => {
       if (data != null) {
         callback(this.token);
       } else {
@@ -159,7 +159,7 @@ export class AppService {
     });
   }
   updateOrder(cliente, pedido, callback, callbackErro,add='') {
-    this.http.get(`https://alanapi.azurewebsites.net/api/updateOrder?token=${this.token}&user=${cliente}&pedido=${pedido}&admin=${this.cliente.email}${add}`).subscribe(data => {
+    this.http.get(`${window['env'].base_api}updateOrder?token=${this.token}&user=${cliente}&pedido=${pedido}&admin=${this.cliente.email}${add}`).subscribe(data => {
       if (data != null) {
         callback(this.token);
       } else {

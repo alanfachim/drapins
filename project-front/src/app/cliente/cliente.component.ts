@@ -27,7 +27,7 @@ export class ClienteComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.name =  ''; 
-      this.http.get(`https://alanapi.azurewebsites.net/api/getOrder?user=${params['user']}&token=${params['token']} `)
+      this.http.get(`${window['env'].base_api}getOrder?user=${params['user']}&token=${params['token']} `)
       .subscribe((data) => { 
         if(!data){
           window.location.href =`./login?user=${params['user']}&action=order`
