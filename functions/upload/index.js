@@ -9,7 +9,7 @@ function randomString(length, chars) {
   for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 }
-module.exports = async function (context, req) {
+module.exports.handler = async function (context, req) {
   req = aws(context, req);
   var multiparty = require('parse-multipart');
   var bodyBuffer = Buffer.from(req.body);

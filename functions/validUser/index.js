@@ -1,7 +1,7 @@
 const db = require('../share/app');
 const aws = require("../awsConvert.js");
 
-module.exports = async function teste(context, req) {
+module.exports.handler = async function teste(context, req) {
   req = aws(context, req);
   await db.queryContainer('CLIENTE', req.query.user)
     .then((data) => {
@@ -37,7 +37,12 @@ module.exports = async function teste(context, req) {
   //lambda response
   console.log(context.res);
   let response = {
-    statusCode: 200,
+    statusCode: 200, 
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
     body: JSON.stringify(context.res)
   };
   return response;

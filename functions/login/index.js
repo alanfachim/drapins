@@ -9,7 +9,7 @@ function randomString(length, chars) {
   for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 }
-module.exports = async function (context, req) {
+module.exports.handler = async function (context, req) {
   req = aws(context, req);
   if (req.query.user !== undefined && req.query.password !== undefined) {
     await db.queryContainer('CLIENTE', req.query.user)
@@ -119,7 +119,12 @@ module.exports = async function (context, req) {
 //lambda response
 console.log(context.res);
 let response = {
-  statusCode: 200, 
+  statusCode: 200,    
+  headers: {
+    "Access-Control-Allow-Headers" : "Content-Type",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+},
   body: JSON.stringify(context.res)
 };
 return response;

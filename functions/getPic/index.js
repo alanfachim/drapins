@@ -5,7 +5,7 @@ const decrypt = require("../decrypt.js");
 
 const aws = require("../awsConvert.js");
 
-module.exports = async function (context, req) {
+module.exports.handler = async function (context, req) {
   req = aws(context, req);
   responseMessage = [];
   const subdir = req.query.catalogo ? req.query.catalogo:'SP';

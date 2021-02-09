@@ -4,7 +4,7 @@ const db = require('../share/app');
 
 const aws = require("../awsConvert.js");
 
-module.exports = async function teste(context, req) {
+module.exports.handler = async function teste(context, req) {
   req = aws(context, req);
   if (db.validatoken(req.query.token, req.query.user.trim(), (req.headers['x-forwarded-for'] || '').split(',').pop().trim())) {
     await db.queryContainer('CLIENTE', req.query.user.trim())
