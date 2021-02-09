@@ -40,8 +40,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: getCupom
-      CodeUri: ./functions/getCupom/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./getCupom/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -53,8 +53,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: getOrder
-      CodeUri: ./functions/getOrder/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./getOrder/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -66,8 +66,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: getPic
-      CodeUri: ./functions/getPic/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./getPic/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -79,8 +79,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: login
-      CodeUri: ./functions/login/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./login/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -92,8 +92,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: notifyUsers
-      CodeUri: ./functions/notifyUsers/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./notifyUsers/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -105,8 +105,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: refresh
-      CodeUri: ./functions/refresh/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./refresh/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -118,8 +118,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: sendMail
-      CodeUri: ./functions/sendMail/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./sendMail/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -131,8 +131,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: share
-      CodeUri: ./functions/share/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./share/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -144,8 +144,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: updateOrder
-      CodeUri: ./functions/updateOrder/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./updateOrder/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -157,8 +157,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: upload
-      CodeUri: ./functions/upload/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./upload/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
@@ -170,8 +170,8 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: validUser
-      CodeUri: ./functions/validUser/
-      Handler: index.handler
+      CodeUri: ./functions
+      Handler: ./validUser/index.handler
       Runtime: nodejs12.x
       Events:
         HelloWorld:
