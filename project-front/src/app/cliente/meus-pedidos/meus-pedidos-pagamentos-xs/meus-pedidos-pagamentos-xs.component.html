@@ -25,13 +25,12 @@
                                 style="font-size: 22px;float: right;"></i>
                         </label>
                         <div class="dropdown">
-                            <button class="btn btn-light dropdown-toggle p-1  " type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                            <button class="btn btn-light dropdown-toggle p-1  " type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Alterar Forma de Pagamento
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item"   *ngFor="let i of pagamentos "
+                                <a class="dropdown-item" *ngFor="let i of pagamentos "
                                     (click)="seleciona(i.carteira)">{{i.carteira}}</a>
                             </div>
                         </div>
@@ -53,7 +52,7 @@
                 <div class="row" *ngFor="let i of pagamentos; let ix = index">
                     <div class="col p-2" *ngIf="i.carteira==pagSelecionado">
 
- 
+
                         <div class="container" *ngIf="i.carteira=='Pix' || i.carteira=='PicPay'">
                             <div class="row rounded" style="background-color: white; ">
                                 <a class="col-5 p-0" (click)="redirect(i.link,i.chave)">
@@ -78,10 +77,19 @@
                         </div>
 
                         <div class="container" *ngIf="i.carteira!='Pix'&&i.carteira!='PicPay'">
-                            <div class="row">
-                                <div class="col" *ngIf="!i.carteira.includes('transf')">
-                                    <h6 class="text-center">Transferencia via {{i.carteira}}</h6>
-                                    <img src="{{i.qrcode}}" class="mx-auto d-block" style="max-width: 100px;" />
+                            <div class="row rounded" style="background-color: white; ">
+                                <div class="container pt-2 pb-2" *ngIf="!i.carteira.includes('transf')">
+                                    <div class="row">
+                                        <a class="col-4 p-0" (click)="redirect(i.link,i.chave)">
+                                            <img class="  m-3" style="max-width: 100px;" src="\assets\bol.png">
+                                        </a>
+                                        <div class="col " style="font-size: smaller; color: gray;">
+                                            <p>Olá enviaremos um boleto referente a esta compra para o email <b
+                                                    class="font-weight-bold">{{i.email_boleto}}</b>, dentro de 24 horas!
+                                            </p>
+                                            <b>Obrigado!</b>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-8">
 

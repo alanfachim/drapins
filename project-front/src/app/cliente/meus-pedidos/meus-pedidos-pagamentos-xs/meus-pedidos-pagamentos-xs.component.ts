@@ -7,46 +7,47 @@ import { AppService } from 'src/app/appservice.service';
   styleUrls: ['./meus-pedidos-pagamentos-xs.component.css']
 })
 export class MeusPedidosPagamentosXsComponent implements OnInit {
- 
-    @Input()
-    public pagamentos: any[];
-    @Input()
-    public pagSelecionado: string;
-    @Input()
-    public pedido: any;
-    fileToUpload: File = null;
-    constructor(private appsevice: AppService) { }
-  
-    ngOnInit(): void {
-      this.pagSelecionado=this.pagamentos[0].carteira;
-    }
-    handleFileInput(files: FileList ) {
-      this.fileToUpload = files.item(0);
-      this.uploadFileToActivity(this.pedido.codigo);
+
+  @Input()
+  public pagamentos: any[];
+  @Input()
+  public pagSelecionado: string;
+  @Input()
+  public pedido: any;
+  fileToUpload: File = null;
+  constructor(private appsevice: AppService) { }
+
+  ngOnInit(): void {
+    if (this.pagSelecionado == '')
+      this.pagSelecionado = this.pagamentos[0].carteira;
   }
-  clear(){
-    this.pedido.comprovante=undefined;
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.uploadFileToActivity(this.pedido.codigo);
   }
-  seleciona(s){
-    this.pagSelecionado=s;
+  clear() {
+    this.pedido.comprovante = undefined;
   }
-  getname(n){
-    var ini=n.split('-')[0]+'-';
-    return n.replace(ini,"");
+  seleciona(s) {
+    this.pagSelecionado = s;
+  }
+  getname(n) {
+    var ini = n.split('-')[0] + '-';
+    return n.replace(ini, "");
   }
   uploadFileToActivity(pedido) {
-    this.appsevice.postFile(this.fileToUpload,pedido,(data)=>{this.pedido.comprovante=data["result"];});
+    this.appsevice.postFile(this.fileToUpload, pedido, (data) => { this.pedido.comprovante = data["result"]; });
   }
   toreal(n) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n);
   }
-  redirect(l,c){
-    if(l!==undefined)
-    window.location.href=l;
-    else{
-      navigator.clipboard.writeText(c).then(function() {
+  redirect(l, c) {
+    if (l !== undefined)
+      window.location.href = l;
+    else {
+      navigator.clipboard.writeText(c).then(function () {
         alert('Chave copiada!')
-      }, function(err) {
+      }, function (err) {
         console.error('Async: Could not copy text: ', err);
       });
     }

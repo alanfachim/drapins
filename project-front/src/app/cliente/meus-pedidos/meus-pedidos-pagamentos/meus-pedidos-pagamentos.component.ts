@@ -11,7 +11,7 @@ export class MeusPedidosPagamentosComponent implements OnInit {
   public pagamentos: any[];
   @Input()
   public pagSelecionado: string;
- 
+
   @Input()
   public pedido: any;
   fileToUpload: File = null;
@@ -21,10 +21,11 @@ export class MeusPedidosPagamentosComponent implements OnInit {
     this.carteira = c;
   }
   ngOnInit(): void {
-    this.pagSelecionado=this.pagamentos[0].carteira;
+    if (this.pagSelecionado == '')
+      this.pagSelecionado = this.pagamentos[0].carteira;
   }
-  seleciona(s){
-    this.pagSelecionado=s;
+  seleciona(s) {
+    this.pagSelecionado = s;
   }
   toreal(n) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n);
