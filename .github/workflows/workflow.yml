@@ -29,13 +29,13 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-              az storage blob upload-batch --account-name alanfachim -d '$web' -s .
+              az storage blob upload-batch --account-name alanfachim -d '$web' -s ./project-front/dist/my-first-app
       - name: Purge CDN endpoint
         uses: azure/CLI@v1
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az cdn endpoint purge --content-paths  "/*" --profile-name "website" --name "drpins " --resource-group "alanbrasilbr"
+            az cdn endpoint purge --content-paths  "/*" --profile-name "website" --name "drpins" --resource-group "alanbrasilbr"
       # Azure logout 
       - name: logout
         run: |
