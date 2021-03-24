@@ -38,11 +38,14 @@ import { HeaderClientComponent } from './cliente/header-client/header-client.com
 import { RootComponent } from './admin/root/root.component';
 import { AdminComponent } from './admin/admin.component';
 import { NguCarouselModule } from '@ngu/carousel'; 
+import { HeaderAdminComponent } from './admin/header-admin/header-admin.component';
+import { RecipesListAdminComponent } from './admin/recipes-list-admin/recipes-list-admin.component';
+import { RecipesItemAdminComponent } from './admin/recipes-list-admin/recipes-item-admin/recipes-item-admin.component';
 
  
 
 @NgModule({
-  declarations: [ AppComponent, MeusPedidosComponent,MeusPedidosPagamentosComponent, MeusPedidosListaComponent,  HeaderComponent, ClienteComponent,RecipesComponent, ShoppingListComponent, ShoppingEditComponent, RecipesListComponent, RecipesDetailComponent, RecipesItemComponent, CarrinhoComponent, PagamentosComponent, DadosClienteComponent, ExtratoComponent, CarrinhoListaComponent, AdmimComponent, MeusPedidosStatusComponent, LoginComponent, CarrinhoEntregaComponent, ClienteChatComponent, MeusPedidosPagamentosXsComponent,   HeaderClientComponent, RootComponent, AdminComponent],
+  declarations: [ AppComponent,RecipesItemAdminComponent, RecipesListAdminComponent,MeusPedidosComponent,MeusPedidosPagamentosComponent, MeusPedidosListaComponent,  HeaderComponent, ClienteComponent,RecipesComponent, ShoppingListComponent, ShoppingEditComponent, RecipesListComponent, RecipesDetailComponent, RecipesItemComponent, CarrinhoComponent, PagamentosComponent, DadosClienteComponent, ExtratoComponent, CarrinhoListaComponent, AdmimComponent, MeusPedidosStatusComponent, LoginComponent, CarrinhoEntregaComponent, ClienteChatComponent, MeusPedidosPagamentosXsComponent,   HeaderClientComponent, HeaderAdminComponent, RootComponent, AdminComponent],
   imports: [CommonModule , BrowserModule, FormsModule, HttpClientModule,NgbModule,FontAwesomeModule,QRCodeModule,ReactiveFormsModule, AutocompleteLibModule,AppRoutingModule,NgbNavModule,NguCarouselModule],
   providers: [NgbActiveModal], 
   bootstrap: [AppComponent]

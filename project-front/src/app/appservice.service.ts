@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { Recipe } from './recipes/recipes.model'; 
+import { Recipe } from './recipes/recipes.model';
 const ALTER_EGOS = ['Eric'];
 
 export class Client {
@@ -16,7 +16,18 @@ export class Client {
 
 
 export class AppService {
-  getCupom(cupom, callback,callbackErro) {
+  updatestock(lista: any[], c: string) {
+    console.log(JSON.stringify(
+      { [c]: lista }
+    ));
+
+    this.http.post(`${window['env'].base_api}updateStock?user=${this.cliente.email.trim()}&token=${this.token}`, JSON.stringify(
+      { [c]: lista }
+    )).subscribe((data) => {
+      alert("Alterado!");
+    });
+  }
+  getCupom(cupom, callback, callbackErro) {
     this.http.get(`${window['env'].base_api}getCupom?user=${this.cliente.email.trim()}&token=${this.token}&cupom=${cupom}`).subscribe(data => {
       if (data != null && data["msg"] !== undefined) {
         callback(data["msg"]);
@@ -158,7 +169,7 @@ export class AppService {
       }
     });
   }
-  updateOrder(cliente, pedido, callback, callbackErro,add='') {
+  updateOrder(cliente, pedido, callback, callbackErro, add = '') {
     this.http.get(`${window['env'].base_api}updateOrder?token=${this.token}&user=${cliente}&pedido=${pedido}&admin=${this.cliente.email}${add}`).subscribe(data => {
       if (data != null) {
         callback(this.token);

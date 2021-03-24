@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from '../appservice.service';
@@ -12,9 +12,34 @@ import { AppService } from '../appservice.service';
 export class AdminComponent implements OnInit {
 
   pedidos: any[] = [];
+  public screen=1;
+  currentWindowWidth: boolean;
+  deviceType: string;
   constructor(private http: HttpClient, private route: ActivatedRoute, public appsevice: AppService) { }
   estimativa: NgbDateStruct;
   rastreio:string;
+  breakpoints = {
+    sm: 768,
+    md: 992,
+    lg: 1200,
+    xl: 1200
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.currentWindowWidth = window.innerWidth > 860;
+    
+    this.deviceType =
+      window.innerWidth >= this.breakpoints.xl
+        ? 'xl'
+        : window.innerWidth >= this.breakpoints.lg
+          ? 'lg'
+          : window.innerWidth >= this.breakpoints.md
+            ? 'md'
+            : window.innerWidth >= this.breakpoints.sm
+              ? 'sm'
+              : 'xs';
+  }
   onSubmit(a,b){
     this.appsevice.updateOrder(a, b, (data) => {
       var p = this.pedidos.filter(function (obj) {
@@ -33,6 +58,11 @@ export class AdminComponent implements OnInit {
   }
   next() {
 
+  }
+  changeTab(event){
+    this.screen=event;
+    console.log(event);
+    
   }
   lista(p) {
     p.exp_lista = !p.exp_lista;
