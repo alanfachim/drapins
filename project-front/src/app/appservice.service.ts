@@ -183,7 +183,7 @@ export class AppService {
 
 
   logout() {
-    this.cliente = new Client('', '', '', '', '', '', '', '');
+    this.cliente = new Client('', '', '', '', '', '', '', '','');
     this.token = undefined;
     localStorage.removeItem('currentUser');
   }
