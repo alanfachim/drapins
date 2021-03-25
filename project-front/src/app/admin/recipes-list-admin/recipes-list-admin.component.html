@@ -1,7 +1,5 @@
-<div class="container pr-xl-0">
-    <div class="row shadow-sm p-2 mb-2  mb-2 mr-lg-0 mr-xl-0 mr-xxl-0 mr-sm-2 mr-md-2 rounded " style="background-color: aliceblue;">
-
-
+<div class="container  ">
+    <div class="row shadow-sm p-2 mb-2  " style="background-color: aliceblue;"> 
         <div class="col-xs">
             <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
                 <button class=" btn btn-link p-0 m-0" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">
@@ -38,7 +36,7 @@
         <div class="col-xs" *ngFor="let r of recipes; let i = index">
 
             <div  href="#" class="list-group-item clearfix p-0 m-1 shadow-sm rounded-lg"
-                style="border: 0px !important; overflow: hidden; ">
+                style="border: 0px ; overflow: hidden; " [ngClass]="r.selected?'selected':''">
                 <div class="view overlay" style="position: relative !important;">
                     <img [src]="r.url" alt="" class="img-responsive" style="height: 110px;width: 110px;">
                     <div class="mask   text-center" [ngClass]="r.qt >0?'rgba-blue-strong':'rgba-red-strong'">
@@ -57,11 +55,11 @@
                          {{r.qt}}</p>
 
 
-                    <button class=" btn btn-light col p-0 m-0" [disabled]=" r.qt <=0"
+                    <button class=" btn btn-light col p-0 m-0" 
                         (click)="onup(r)">
                         <fa-icon [icon]="farigth" class="" style="color: darkcyan;"></fa-icon>
                     </button>
-                </div>
+                </div>  
             </div>
             
         </div>

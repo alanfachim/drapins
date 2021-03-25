@@ -52,12 +52,18 @@ export class RecipesListAdminComponent implements OnInit {
   }
   public lista = [];
   salvar() {
-    if (confirm("tem certeza?")) {
+    var msg='';
+    this.lista.forEach(element => {
+      msg += `${element.SKU}, `
+    });
+    if (confirm("Voce irá alerar os produtos:" + msg)) {
       console.log(this.lista);
       this.appsevice.updatestock(this.lista, this.c);
+      location.reload();
     }
   }
   onup(r) {
+    r['selected'] = true;
     if (isNaN(r.qt)) {
       r.qt = 0;
     }
@@ -76,6 +82,7 @@ export class RecipesListAdminComponent implements OnInit {
 
   }
   ondown(r) {
+    r['selected'] = true;
     r.qt = parseInt(r.qt) - 1;
     var a = [];
     a = this.lista.filter(function (objLista) {

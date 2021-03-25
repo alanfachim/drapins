@@ -1,9 +1,24 @@
 <app-header-admin (onchange)="changeTab($event)"></app-header-admin>
 <div class="container bg-white " style=" min-height: calc(100vh - 50px);">
     <div *ngIf="screen==1">
+        <div class="row shadow-sm p-2 mb-1 "
+                style="background-color: aliceblue;">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"  [checked]="saveUsername" (change)="saveUsername = !saveUsername">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Mostrar pedidos finalizados
+                    </label>
+                  </div>
+                <div class="col-xs">
+                </div>
+                
+
+            </div>
         <div class="row" *ngFor="let pedido of pedidos">
 
-            <div class="container p-0 m-0 pt-3">
+            
+            <div *ngIf="saveUsername || pedido.status!='4 - Produto entregue'" class="container p-0 m-0 pt-3">
                 <div class="card bg-light  p-0 m-0 m-md-2">
                     <div class="card-header"
                         [ngClass]="getCatalogo(pedido.total_detalhe)==1?'bgsp':getCatalogo(pedido.total_detalhe)==2?'bgmg':'bgmgsp'">
@@ -13,7 +28,7 @@
                             <div class="col">
                                 <div class="dropdown">
                                     <button [title]="pedido.status"
-                                        class="btn btn-light dropdown-toggle p-1 ml-3 text-truncate " type="button"
+                                         class="btn btn-light dropdown-toggle p-1 ml-3 text-truncate " type="button"
                                         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false" style="min-width: 80px;">
                                         {{pedido.status}}
@@ -224,10 +239,10 @@
         </div>
     </div>
     <div *ngIf="screen==2">
-        <app-recipes-list-admin  [deviceType]="deviceType" [c]="'sp'"></app-recipes-list-admin> 
+        <app-recipes-list-admin [deviceType]="deviceType" [c]="'sp'"></app-recipes-list-admin>
     </div>
     <div *ngIf="screen==3">
-        <app-recipes-list-admin  [deviceType]="deviceType" [c]="'mg'"></app-recipes-list-admin> 
+        <app-recipes-list-admin [deviceType]="deviceType" [c]="'mg'"></app-recipes-list-admin>
     </div>
 
 </div>
