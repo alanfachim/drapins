@@ -41,9 +41,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-1">{{total(pedido.total)}}</div>
+                            <div class="col">{{total(pedido.total)}}</div>
                             <div class="col">{{date(pedido)}}</div>
-                            <div class="col"><a class="btn" [ngClass]="pedido.comprovante==undefined?'disabled':''"
+                            <div class="col-1"><a class="btn" [ngClass]="pedido.comprovante==undefined?'disabled':''"
                                     [href]="pedido.comprovante"> Comprov.</a></div>
                             <div class="col-4">
                                 <button name="" id="" (click)="chat(pedido)" class="btn btn-primary ml-2 mr-2" href="#"
@@ -183,6 +183,11 @@
                                         <div class="col">
                                             <hr>
                                         </div>
+                                    </div>
+                                    <div class="row pt-3">
+                                        <div class="col" style="min-width: 170px;">
+                                            <p>Pagamento via {{pedido.formaPag}}</p>
+                                        </div> 
                                     </div>
                                     <div class="row" *ngFor="let s of pedido.total_detalhe">
                                         <div class="col-2">

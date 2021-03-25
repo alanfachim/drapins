@@ -2,7 +2,7 @@ import { AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, HostLi
 import { Recipe } from '../../recipes/recipes.model';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from "../../appservice.service";
-import { faArrowAltCircleLeft, faArrowAltCircleRight, faArrowLeft, faArrowRight, faCoffee, faSave, faShoppingCart, faSort } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleLeft, faArrowAltCircleRight, faArrowLeft, faArrowRight, faCoffee, faFolderPlus, faSave, faShoppingCart, faSort } from '@fortawesome/free-solid-svg-icons';
 import { AdmimComponent } from 'src/app/admim/admim.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -30,6 +30,7 @@ export class RecipesListAdminComponent implements OnInit {
   message: string;
   faSort = faSort;
   faSave = faSave;
+  faFolderPlus=faFolderPlus;
   faShoppingCart = faArrowLeft;
   farigth = faArrowRight;
   dados: any;
@@ -51,6 +52,10 @@ export class RecipesListAdminComponent implements OnInit {
 
   }
   public lista = [];
+
+  incluir(){
+    alert('ainda não disponivel');
+  }
   salvar() {
     var msg='';
     this.lista.forEach(element => {
