@@ -26,6 +26,7 @@ export class DadosClienteComponent implements OnInit {
       endereco: this.clienteForm.get('endereco').value,
       cidade: this.clienteForm.get('cidade').value,
       estado: this.clienteForm.get('estado').value,
+      bairro: this.clienteForm.get('bairro').value,
       numero: this.clienteForm.get('numero').value,
       nome: this.clienteForm.get('nome').value,
       complemento: this.clienteForm.get('complemento').value,
@@ -80,6 +81,10 @@ export class DadosClienteComponent implements OnInit {
     if (item.info.municipality !== undefined) {
       this.clienteForm.get('cidade').setValue(item.info.municipality);
     };
+    if (item.info.municipalitySubdivision !== undefined) {
+      this.clienteForm.get('bairro').setValue(item.info.municipalitySubdivision);
+    };
+    
     if (item.info.countrySubdivision !== undefined) {
       this.clienteForm.get('estado').setValue(item.info.countrySubdivision);
     };
@@ -116,6 +121,7 @@ export class DadosClienteComponent implements OnInit {
         data["results"].forEach((element, i) => {
           try {
             if (element !== undefined && element.address !== undefined && element.address.streetName !== undefined && element.address.municipality !== undefined) {
+ 
 
               if (element.address.streetNumber === undefined) {
                 this.data.push({ name: `${element.address.streetName}, ${element.address.municipality}`, id: i, info: element.address, names: `${element.address.streetName}` })
@@ -211,6 +217,11 @@ export class DadosClienteComponent implements OnInit {
         Validators.minLength(4),
         forbiddenNameValidator(/[a-záàâãéèêíïóôõöúçñ ]{4,20}/i)
       ]),
+      bairro: new FormControl(this.appsevice.cliente.bairro, [
+        Validators.required,
+        Validators.minLength(4),
+        forbiddenNameValidator(/[a-záàâãéèêíïóôõöúçñ ]{4,30}/i)
+      ]),
       complemento: new FormControl(this.appsevice.cliente.complemento),
       estado: new FormControl(this.appsevice.cliente.estado, [
         Validators.required,
@@ -238,6 +249,7 @@ export class DadosClienteComponent implements OnInit {
   get senha() { return this.clienteForm.get('senha'); }
   get confsenha() { return this.clienteForm.get('confsenha'); }
   get cidade() { return this.clienteForm.get('cidade'); }
+  get bairro() { return this.clienteForm.get('bairro'); }
   get estado() { return this.clienteForm.get('estado'); }
   get cep() { return this.clienteForm.get('cep'); }
   get numero() { return this.clienteForm.get('numero'); }

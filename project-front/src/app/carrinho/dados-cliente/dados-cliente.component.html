@@ -198,6 +198,24 @@
           </div>
         </div>
       </div>
+      <div class="form-row" *ngIf="selecionado">
+        <div class="form-group col">
+          <label for="bairro">Bairro</label>
+          <input id="bairro" class="form-control" formControlName="bairro" autocomplete="new-password" required>
+          <div *ngIf="bairro.invalid && (bairro.dirty || bairro.touched)" class="alert alert-danger">
+
+            <div *ngIf="bairro.errors.required">
+              Campo obrigatório.
+            </div>
+            <div *ngIf="bairro.errors.minlength">
+              Campo inválido.
+            </div>
+            <div *ngIf="bairro.errors.forbiddenName">
+              Bairro não pode ser {{bairro.value}}.
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </form>

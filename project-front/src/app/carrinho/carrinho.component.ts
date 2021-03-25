@@ -217,6 +217,7 @@ export class CarrinhoComponent implements OnInit {
                       &numero=${this.appsevice.cliente.numero.trim()}
                       &endereco=${this.appsevice.cliente.endereco.trim()}
                       &cidade=${this.appsevice.cliente.cidade.trim()}
+                      &bairro=${this.appsevice.cliente.bairro.trim()}
                       &complemento=${this.appsevice.cliente.complemento?this.appsevice.cliente.complemento.trim():''} 
                       &estado=${this.appsevice.cliente.estado.trim()}
                       &secret=${senha}

@@ -7,7 +7,7 @@ const ALTER_EGOS = ['Eric'];
 
 export class Client {
   complemento: any;
-  constructor(public email: string, public telefone: string, public endereco: string, public cidade: string, public estado: string, public cep: string, public numero: string, public nome: string) { }
+  constructor(public email: string, public telefone: string, public endereco: string, public cidade: string,public bairro: string, public estado: string, public cep: string, public numero: string, public nome: string) { }
 }
 
 @Injectable({
@@ -61,7 +61,7 @@ export class AppService {
       }
     });
   }
-  public cliente: Client = new Client('', '', '', '', '', '', '', '')
+  public cliente: Client = new Client('', '', '', '', '', '', '', '','')
   public pggerado: boolean = false;
   public Catalogo: string = Math.random() > 0.6 ? 'mg' : 'sp';
   frete: number;
@@ -136,6 +136,7 @@ export class AppService {
     &numero=${cliente.numero.trim()}
     &endereco=${cliente.endereco.trim()}
     &cidade=${cliente.cidade.trim()}
+    &bairro=${cliente.bairro.trim()}
     &secret=${senha}
     &complemento=${cliente.complemento} 
     &estado=${cliente.estado.trim()}
