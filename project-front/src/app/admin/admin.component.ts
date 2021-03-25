@@ -129,6 +129,7 @@ export class AdminComponent implements OnInit {
               p.endereco = element["endereco"];
               p.numero = element["numero"];
               p.cidade = element["cidade"];
+              p.bairro = element["bairro"];
               p.complemento = element["complemento"];
               p.estado = element["estado"];
               p.cep = element["cep"];
