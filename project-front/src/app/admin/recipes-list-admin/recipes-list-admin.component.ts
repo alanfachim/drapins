@@ -8,8 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { NguCarouselConfig, NguCarouselStore, NguTileComponent, NguCarousel } from '@ngu/carousel';
 import { Observable } from 'rxjs';
-import { AddskuComponent } from './addsku/addsku.component';
-import { FileUploader } from 'ng2-file-upload';
+import { AddskuComponent } from './addsku/addsku.component'; 
 
 const MODALS: { [name: string]: Type<any> } = {
   admin: AddskuComponent
