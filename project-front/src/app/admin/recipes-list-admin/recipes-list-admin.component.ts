@@ -62,8 +62,8 @@ export class RecipesListAdminComponent implements OnInit {
       this.fileName = file.name;
       console.log(file.name);
       
-      if(!file.name.includes('.jpg') || (file.name.match(/_/g) || []).length <3){
-        alert('Erro! só é aceito imagem do tipo jpg e com o seguinte fomato: "valor_codigo_estoque_popularidade_nome.jpg"');
+      if(!file.name.includes('.jpg') || (file.name.match(/-/g) || []).length <3){
+        alert('Erro! só é aceito imagem do tipo jpg e com o seguinte fomato: "valor-codigo-estoque-popularidade-nome.jpg"');
         return;
       }
       const formData = new FormData();
