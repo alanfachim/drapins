@@ -2,15 +2,17 @@ import { AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, HostLi
 import { Recipe } from '../../recipes/recipes.model';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from "../../appservice.service";
-import { faArrowAltCircleLeft, faArrowAltCircleRight, faArrowLeft, faArrowRight, faCoffee, faFolderPlus, faSave, faShoppingCart, faSort } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleLeft, faArrowAltCircleRight, faArrowLeft, faArrowRight, faCoffee, faFolderPlus, faSave, faShoppingCart, faSort, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AdmimComponent } from 'src/app/admim/admim.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { NguCarouselConfig, NguCarouselStore, NguTileComponent, NguCarousel } from '@ngu/carousel';
 import { Observable } from 'rxjs';
+import { AddskuComponent } from './addsku/addsku.component';
+import { FileUploader } from 'ng2-file-upload';
 
 const MODALS: { [name: string]: Type<any> } = {
-  admin: AdmimComponent
+  admin: AddskuComponent
 };
 
 @Component({
@@ -22,7 +24,7 @@ const MODALS: { [name: string]: Type<any> } = {
 
 
 export class RecipesListAdminComponent implements OnInit {
-
+  fileName = '';
   recipes: Recipe[] = [];
   classes = [];
   quites: Recipe[] = [];
@@ -30,9 +32,10 @@ export class RecipesListAdminComponent implements OnInit {
   message: string;
   faSort = faSort;
   faSave = faSave;
-  faFolderPlus=faFolderPlus;
+  faFolderPlus = faFolderPlus;
   faShoppingCart = faArrowLeft;
   farigth = faArrowRight;
+  faTrash=faTrash;
   dados: any;
   token: string;
 
@@ -48,16 +51,46 @@ export class RecipesListAdminComponent implements OnInit {
 
   @Output()
   onload = new EventEmitter();
+
   constructor(private http: HttpClient, public appsevice: AppService, private _modalService: NgbModal, private route: ActivatedRoute, private cdref: ChangeDetectorRef) {
 
   }
   public lista = [];
 
-  incluir(){
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append("fileKey", file);
+      const upload$ = this.http.post(`${window['env'].base_api}uploadSKU?user=${this.appsevice.cliente.email.trim()}&token=${this.appsevice.token}&dir=${this.c}`, formData);
+      upload$.subscribe((data) => {
+        if(!data){
+          alert("Incluido com sucesso!");
+          return;
+        }
+        
+
+        console.log(data.toString()); 
+        if (!data.toString().includes('err')) {
+          alert("Incluido com sucesso!");
+        }
+      });
+    }
+  }
+  deletar(r){
+    alert('termino semana que vem!');
+  }
+  incluir() {
     alert('ainda não disponivel');
+    this._modalService.open(MODALS['admin'], { size: 'lg' });
+  }
+  update() {
+    alert('ainda não disponivel');
+    this._modalService.open(MODALS['admin'], { size: 'lg' });
   }
   salvar() {
-    var msg='';
+    var msg = '';
     this.lista.forEach(element => {
       msg += `${element.SKU}, `
     });

@@ -47,6 +47,7 @@ p{
         align-items: center;
         justify-content: center;
       }
+
       
       .tile {
         min-height: 200px;
@@ -148,6 +149,9 @@ p{
         right: 0;
       }
       
+      .file-input {
+        display: none;
+      }
       .rightRs1 {
         position: absolute;
         margin: auto;

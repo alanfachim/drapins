@@ -1,5 +1,5 @@
 <div class="container  ">
-    <div class="row shadow-sm p-2 mb-2  " style="background-color: aliceblue;"> 
+    <div class="row shadow-sm p-2 mb-2  " style="background-color: aliceblue;">
         <div class="col-xs">
             <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
                 <button class=" btn btn-link p-0 m-0" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">
@@ -13,23 +13,25 @@
                     <button ngbDropdownItem (click)="onSortSelect(4)">Popularidade</button>
                 </div>
             </div>
-        </div> 
-        <button class=" btn btn-primary col-2  ml-auto" (click)="incluir()" >
+        </div>
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+        <button  class="btn btn-primary col-2  ml-auto " (click)="fileUpload.click()">
             <fa-icon [icon]="faFolderPlus"></fa-icon>
             Incluir
-        </button> 
-            <button class=" btn btn-primary col-2  ml-2 auto" (click)="salvar()" >
-                <fa-icon [icon]="faSave"></fa-icon>
-                Salvar
-            </button> 
-            
-        
+        </button>
+        <button class=" btn btn-primary col-2  ml-2 auto" (click)="salvar()">
+            <fa-icon [icon]="faSave"></fa-icon>
+            Salvar
+        </button>
+
+
     </div>
 </div>
 
 <div class="container bg-white text-center" *ngIf="recipes_orig.length==0" style=" min-height: calc(100vh - 50px);">
     <span class="spinner-border spinner-border-sm mr-1 loader mt-5"></span>
-</div> 
+</div>
 
 <div class="container  " *ngFor="let recipes of classes; let ii = index">
     <div class="row" *ngIf="recipes.length>0 && classes.length>1">
@@ -40,33 +42,35 @@
     <div class="row ">
         <div class="col-xs" *ngFor="let r of recipes; let i = index">
 
-            <div  href="#" class="list-group-item clearfix p-0 m-1 shadow-sm rounded-lg"
+            <div href="#" class="list-group-item clearfix p-0 m-1 shadow-sm rounded-lg"
                 style="border: 0px ; overflow: hidden; " [ngClass]="r.selected?'selected':''">
                 <div class="view overlay" style="position: relative !important;">
                     <img [src]="r.url" alt="" class="img-responsive" style="height: 110px;width: 110px;">
                     <div class="mask   text-center" [ngClass]="r.qt >0?'rgba-blue-strong':'rgba-red-strong'">
-                        <p class="white-text pt-2">{{r.SKU}}</p>
-                        <p class="white-text" *ngIf="r.qt >0">{{r.valor}}</p>
-                        <p class="white-text" *ngIf="r.qt <=0">Indisponível</p>
+                        <p class="white-text pt-1 p-0">{{r.SKU}}</p>
+                        <p class="white-text p-0" *ngIf="r.qt >0">{{r.valor}}</p>
+                        <p class="white-text p-0" *ngIf="r.qt <=0">Indisponível</p>
+                        <button class=" btn btn-light  pr-2 pl-2 m-2" (click)="deletar(r)">
+                            <fa-icon [icon]="faTrash" class="" style="color: darkcyan;"></fa-icon>
+                            Apagar
+                        </button>
                     </div>
                 </div>
                 <div class="row m-0 p-0  ">
-                    <button class=" btn btn-light col p-0 m-0" [disabled]=" r.qt <=0"
-                    (click)="ondown(r)">
-                    <fa-icon [icon]="faShoppingCart" class="" style="color: darkcyan;"></fa-icon>
-                </button>
+                    <button class=" btn btn-light col p-0 m-0" [disabled]=" r.qt <=0" (click)="ondown(r)">
+                        <fa-icon [icon]="faShoppingCart" class="" style="color: darkcyan;"></fa-icon>
+                    </button>
                     <p class="list-group-item-text text-center text-truncate bg-white col p-0"
                         style=" color: rgb(0, 0, 0);">
-                         {{r.qt}}</p>
+                        {{r.qt}}</p>
 
 
-                    <button class=" btn btn-light col p-0 m-0" 
-                        (click)="onup(r)">
+                    <button class=" btn btn-light col p-0 m-0" (click)="onup(r)">
                         <fa-icon [icon]="farigth" class="" style="color: darkcyan;"></fa-icon>
                     </button>
-                </div>  
+                </div>
             </div>
-            
+
         </div>
 
     </div>

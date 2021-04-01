@@ -41,11 +41,12 @@ import { NguCarouselModule } from '@ngu/carousel';
 import { HeaderAdminComponent } from './admin/header-admin/header-admin.component';
 import { RecipesListAdminComponent } from './admin/recipes-list-admin/recipes-list-admin.component';
 import { RecipesItemAdminComponent } from './admin/recipes-list-admin/recipes-item-admin/recipes-item-admin.component';
+import { AddskuComponent } from './admin/recipes-list-admin/addsku/addsku.component';
 
  
 
 @NgModule({
-  declarations: [ AppComponent,RecipesItemAdminComponent, RecipesListAdminComponent,MeusPedidosComponent,MeusPedidosPagamentosComponent, MeusPedidosListaComponent,  HeaderComponent, ClienteComponent,RecipesComponent, ShoppingListComponent, ShoppingEditComponent, RecipesListComponent, RecipesDetailComponent, RecipesItemComponent, CarrinhoComponent, PagamentosComponent, DadosClienteComponent, ExtratoComponent, CarrinhoListaComponent, AdmimComponent, MeusPedidosStatusComponent, LoginComponent, CarrinhoEntregaComponent, ClienteChatComponent, MeusPedidosPagamentosXsComponent,   HeaderClientComponent, HeaderAdminComponent, RootComponent, AdminComponent],
+  declarations: [ AppComponent,RecipesItemAdminComponent, RecipesListAdminComponent,MeusPedidosComponent,MeusPedidosPagamentosComponent, MeusPedidosListaComponent,  HeaderComponent, ClienteComponent,RecipesComponent, ShoppingListComponent, ShoppingEditComponent, RecipesListComponent, RecipesDetailComponent, RecipesItemComponent, CarrinhoComponent, PagamentosComponent, DadosClienteComponent, ExtratoComponent, CarrinhoListaComponent, AdmimComponent, MeusPedidosStatusComponent, LoginComponent, CarrinhoEntregaComponent, ClienteChatComponent, MeusPedidosPagamentosXsComponent,   HeaderClientComponent, HeaderAdminComponent, RootComponent, AdminComponent, AddskuComponent],
   imports: [CommonModule , BrowserModule, FormsModule, HttpClientModule,NgbModule,FontAwesomeModule,QRCodeModule,ReactiveFormsModule, AutocompleteLibModule,AppRoutingModule,NgbNavModule,NguCarouselModule],
   providers: [NgbActiveModal], 
   bootstrap: [AppComponent]
