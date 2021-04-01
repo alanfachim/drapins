@@ -60,6 +60,12 @@ export class RecipesListAdminComponent implements OnInit {
     const file: File = event.target.files[0];
     if (file) {
       this.fileName = file.name;
+      console.log(file.name);
+      
+      if(!file.name.includes('.jpg') || (file.name.match(/_/g) || []).length <3){
+        alert('Erro! só é aceito imagem do tipo jpg e com o seguinte fomato: "valor_codigo_estoque_popularidade_nome.jpg"');
+        return;
+      }
       const formData = new FormData();
       formData.append("fileKey", file);
       const upload$ = this.http.post(`${window['env'].base_api}uploadSKU?user=${this.appsevice.cliente.email.trim()}&token=${this.appsevice.token}&dir=${this.c}`, formData);
