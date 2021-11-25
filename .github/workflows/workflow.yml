@@ -29,15 +29,15 @@ jobs:
       - name: Install dependencies
         run: az account list
       - name: Upload to blob storage
-        uses: azure/CLI@v1
+        uses: azure/CLI@v1.0.4
         with:
-          azcliversion: 2.0.72
+          azcliversion: 2.30.0
           inlineScript: |
               az storage blob upload-batch --account-name alanfachim -d '$web' -s ./project-front/dist/my-first-app --subscription ${{ secrets.AZURE_SUB }}
       - name: Purge CDN endpoint
-        uses: azure/CLI@v1
+        uses: azure/CLI@v1.0.4
         with:
-          azcliversion: 2.0.72
+          azcliversion: 2.30.0
           inlineScript: |
             az cdn endpoint purge --content-paths  "/*" --profile-name "website" --name "drpins" --resource-group "alanbrasilbr" --subscription ${{ secrets.AZURE_SUB }}
       # Azure logout 
