@@ -39,7 +39,7 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az cdn endpoint purge --content-paths  "/*" --profile-name "website" --name "drpins" --resource-group "alanbrasilbr"
+            az cdn endpoint purge --content-paths  "/*" --profile-name "website" --name "drpins" --resource-group "alanbrasilbr" --subscription ${{ secrets.AZURE_SUB }}
       # Azure logout 
       - name: logout
         run: |
