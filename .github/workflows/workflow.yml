@@ -26,6 +26,8 @@ jobs:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Install dependencies
         run: az account set -s ${{ secrets.AZURE_SUB }}
+      - name: Install dependencies
+        run: az account list
       - name: Upload to blob storage
         uses: azure/CLI@v1
         with:
