@@ -52,10 +52,12 @@ onclickCatalogof(e){
   this.onclickCatalogo.emit();
 }
   getstate(){
-    if(this.cat=='sp')
-    return ['sp','mg'];
-    else
-    return ['mg','sp'];
+    //if(this.cat=='sp')
+    //return ['sp','mg'];
+    //else
+    //return ['mg','sp'];
+    return ['sp'];
+
   }
   admin(id) {
     this._modalService.open(MODALS['admin']);
