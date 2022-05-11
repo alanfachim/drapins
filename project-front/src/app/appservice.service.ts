@@ -63,7 +63,8 @@ export class AppService {
   }
   public cliente: Client = new Client('', '', '', '', '', '', '', '','')
   public pggerado: boolean = false;
-  public Catalogo: string = Math.random() > 0.6 ? 'mg' : 'sp';
+  //public Catalogo: string = Math.random() > 0.6 ? 'mg' : 'sp';
+  public Catalogo: string = 'sp';
   frete: number;
   token: string;
   subCart(i: number) {
